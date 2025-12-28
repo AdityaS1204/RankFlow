@@ -8,7 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-instrument-sans), var(--font-geist-sans);
+  --font-serif: var(--font-instrument-serif);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -23,4 +24,22 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hide scrollbar for Calendly popup */
+.calendly-overlay .calendly-popup .calendly-popup-content {
+  overflow: hidden !important;
+}
+
+.calendly-overlay .calendly-popup .calendly-popup-content iframe {
+  overflow: hidden !important; 
+}
+
+/* Setup specifically for hiding scrollbars but allowing scroll if needed */
+.calendly-popup-content::-webkit-scrollbar {
+  display: none;
+}
+.calendly-popup-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
