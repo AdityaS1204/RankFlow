@@ -39,6 +39,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+        <script
+          src="https://beamanalytics.b-cdn.net/beam.min.js"
+          data-token="fa1c2bb7-4c61-493f-afa2-23d41a9480a4"
+          async
+        >
+        </script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSans.variable} ${instrumentSerif.variable} antialiased`}
