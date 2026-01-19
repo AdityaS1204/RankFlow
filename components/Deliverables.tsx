@@ -58,17 +58,17 @@ const Deliverables = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                     {cards.map((card, index) => (
-                        <div key={index} className="flex flex-col gap-6 p-4">
+                        <div key={index} className="flex flex-col gap-6 p-4 items-center text-center rounded-xl border bg-white border-black/5 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
                             <div className="text-blue-600">
                                 {card.icon}
                             </div>
-                            <div className="flex flex-col gap-3">
-                                <h3 className="font-serif text-xl font-medium text-black italic">
+                            <div className="flex flex-col gap-3 items-center">
+                                <h3 className="font-serif text-2xl font-medium text-black italic">
                                     {card.title}
                                 </h3>
-                                <ul className="flex flex-col gap-2">
+                                <ul className="flex flex-col gap-2 items-center">
                                     {card.bullets.map((bullet, i) => (
-                                        <li key={i} className="font-sans text-sm text-black/40 flex items-center gap-2">
+                                        <li key={i} className="font-sans text-lg text-black/40 flex items-center justify-center gap-2">
                                             <div className="w-1 h-1 bg-black/20 rounded-full" />
                                             {bullet}
                                         </li>
