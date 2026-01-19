@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { MdTrendingUp } from "react-icons/md";
 import CTAButton from "./CTAButton";
 
