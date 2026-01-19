@@ -1,0 +1,13 @@
+# RankFlow LLM Information
+# Primarily for AI agents and LLMs to understand the site structure and content.
+
+Title: RankFlow - AI-Optimized Landing Pages
+Description: RankFlow designs custom landing pages optimized for ChatGPT, Google SGE, and modern AI search behavior.
+URL: https://rankflow.in
+
+# Main Context File
+/rankflow-ai.md
+
+# Core Pages
+/
+/sitemap.xml
