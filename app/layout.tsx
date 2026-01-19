@@ -67,6 +67,7 @@ export const metadata: Metadata = {
 
 import Script from "next/script";
 import { ModalProvider } from "@/context/ModalContext";
+import Chatbot from "@/components/Chatbot/Chatbot";
 
 export default function RootLayout({
   children,
@@ -89,6 +90,7 @@ export default function RootLayout({
       >
         <ModalProvider>
           {children}
+          <Chatbot />
         </ModalProvider>
         <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
       </body>
