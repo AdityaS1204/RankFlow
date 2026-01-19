@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
+import Image from "next/image";
 
 const Footer = () => {
     return (
@@ -13,10 +14,17 @@ const Footer = () => {
                     {/* Brand Info */}
                     <div className="flex flex-col gap-6 max-w-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shadow-sm">
-                                R
+                            <div className="w-8 h-8 flex items-center justify-center ">
+                                <Image
+                                    src={'/icon.png?v=2'}
+                                    alt="RankFlow Logo"
+                                    width={24}
+                                    height={24}
+                                    className="w-6 h-6 rounded-lg"
+                                    unoptimized
+                                />
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-black font-sans">
+                            <span className="text-xl font-bold tracking-tight text-black font-serif">
                                 Rankflow
                             </span>
                         </div>
@@ -64,6 +72,14 @@ const Footer = () => {
                             Terms of Service
                         </Link>
                     </div>
+                </div>
+
+                {/* Giant Glowing Logo */}
+                <div className="flex justify-center items-center gap-2 -mt-20 -mb-20">                    
+                        <img src="/icon.png" alt="logo" className="w-66 h-63" />
+                    <h1 className="text-[12vw] md:text-[300px] font-serif font-bold tracking-wide text-black select-none text-shadow text-shadow-[0_0_30px_rgba(59,130,246,0.3)] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] pointer-events-none">
+                        Rankflow
+                    </h1>
                 </div>
             </div>
         </footer>
