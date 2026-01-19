@@ -23,11 +23,11 @@ const TrustPrimer = () => {
     ];
 
     return (
-        <section className="relative w-full bg-black/[0.02] border-y border-black/5 py-12 -mt-12 md:-mt-34 z-40">
+        <section className="relative w-full bg-black/[0.02] border-y border-black/5 py-12 -mt-12 md:-mt-27 z-40">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                     {items.map((item, index) => (
-                        <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left gap-3">
+                        <div key={index} className="flex flex-col items-center text-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-black/5">
                                 {item.icon}
                             </div>
