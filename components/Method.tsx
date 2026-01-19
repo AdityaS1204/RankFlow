@@ -27,7 +27,7 @@ const Method = () => {
     ];
 
     return (
-        <section className="w-full py-24 bg-black/[0.01]">
+        <section className="w-full py-24 bg-black/[0.01]" id='features'>
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex flex-col gap-12 text-center md:text-left">
                     <div className="max-w-2xl">

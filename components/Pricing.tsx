@@ -33,7 +33,7 @@ const Pricing = () => {
     ];
 
     return (
-        <section className="w-full py-24 bg-black/[0.02] relative overflow-hidden">
+        <section className="w-full py-24 bg-black/[0.02] relative overflow-hidden" id="pricing">
             <div className="max-w-6xl mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-sans font-bold uppercase tracking-widest text-sm">Pricing</span>

@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Work from "@/components/Work";
 import TrustPrimer from "@/components/TrustPrimer";
 import Problem from "@/components/Problem";
 import Method from "@/components/Method";
@@ -19,12 +20,12 @@ export default function Home() {
       <Hero />
       <TrustPrimer />
       <Problem />
-      <Method />
-      {/* <Deliverables /> */}
+        <Method />
+      <Deliverables />
       {/* <Comparison /> */}
       <AuditHook />
       <WhoIsItFor />
-      <Pricing />
+        <Pricing />
       <ChatbotUpsell />
       <FinalCTA />
       <Footer />
