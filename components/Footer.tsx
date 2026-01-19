@@ -71,6 +71,9 @@ const Footer = () => {
                         <Link href="#" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
                             Terms of Service
                         </Link>
+                        <Link href="/llms.txt" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
+                            llms.txt
+                        </Link>
                     </div>
                 </div>
 
