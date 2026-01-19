@@ -19,7 +19,7 @@ const Navbar = () => {
                         className="w-6 h-6 rounded-lg"
                         unoptimized
                     />
-                    <span className="text-xl font-bold tracking-tight text-black font-sans">Rankflow</span>
+                    <span className="text-xl font-bold tracking-wide text-black font-serif">Rankflow</span>
                 </div>
 
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-black/60">
