@@ -23,8 +23,46 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "RankFlow - AI-powered Landing Pages",
-  description: "Get Custom landing pages that converts.",
+  metadataBase: new URL('https://rankflow.in'),
+  title: "RankFlow - AI-Optimized Landing Pages",
+  description: "Get custom landing pages that convert.",
+  icons: {
+    icon: [
+      { url: '/rankflow-icon.png', href: '/rankflow-icon.png', sizes: 'any', type: 'image/png' },
+    ],
+    shortcut: '/rankflow-icon.png',
+    apple: '/rankflow-icon.png',
+  },
+  openGraph: {
+    title: "RankFlow - AI-Optimized Landing Pages",
+    description: "Get custom landing pages that convert.",
+    images: [
+      {
+        url: "/rankflow.png",
+        width: 1200,
+        height: 630,
+        alt: "RankFlow - AI-Optimized Landing Pages",
+      },
+    ],
+    siteName: "RankFlow",
+    locale: "en_US",
+    type: "website",
+    url: "https://rankflow.in",
+  },
+  twitter: {
+    title: "RankFlow - AI-Optimized Landing Pages",
+    description: "Get custom landing pages that convert.",
+    card: "summary_large_image",
+    images: [
+      {
+        url: "/rankflow.png",
+        width: 1200,
+        height: 630,
+        alt: "RankFlow - AI-Optimized Landing Pages",
+      },
+    ],
+    site: "@RankFlow",
+  },
 };
 
 import Script from "next/script";
