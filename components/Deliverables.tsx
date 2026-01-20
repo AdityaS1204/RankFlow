@@ -45,7 +45,7 @@ const Deliverables = () => {
     ];
 
     return (
-        <section className="w-full py-24 bg-white">
+        <section className="w-full py-24 bg-white" id="solutions">
             <div className="max-w-6xl mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight italic">
