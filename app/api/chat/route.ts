@@ -1,17 +1,19 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Groq } from 'groq-sdk';
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY || "");
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY || "",
+});
 
 export async function POST(req: Request) {
     try {
         const { messages } = await req.json();
 
-        if (!process.env.GOOGLE_GEMINI_API_KEY) {
+        if (!process.env.GROQ_API_KEY) {
             return NextResponse.json(
-                { error: "Gemini API key is not configured" },
+                { error: "Groq API key is not configured" },
                 { status: 500 }
             );
         }
@@ -26,39 +28,78 @@ export async function POST(req: Request) {
             siteContext = "RankFlow is an AI landing page agency.";
         }
 
-        const model = genAI.getGenerativeModel({
-            model: "gemini-2.0-flash",
-            systemInstruction: `You are the RankFlow Assistant, a helpful AI chatbot for rankflow.in. 
-      Your goal is to answer questions about RankFlow's services, pricing, and methodology.
-      Use the following context to provide accurate information:
-      ${siteContext}
-      
-      Keep your responses professional, concise, and focused on converting the visitor into a lead.
-      
-      IMPORTANT: Whenever you suggest booking a call or meeting, you MUST include the text [BOOK_CALL] at the very end of your message. 
-      This will trigger a button for the user to book directly.
-      
-      If asked about something not in the context, politely direct them to book a call and add [BOOK_CALL].
-      Always align with the brand voice: calm, confident, and intelligence-driven.`
+        const systemInstruction = `# PERSONA
+You are the RankFlow Assistant, an expert AI strategist for rankflow.in. Your tone is professional, sophisticated, and focused on demonstrating high ROI for clients.
+
+# CONTEXT
+Use ONLY the following context to answer questions:
+${siteContext}
+
+# GOALS
+1. Primary: Convert visitors into leads by booking a strategy call.
+2. Secondary: Educate visitors on why "AI-First" design is superior to legacy SEO.
+
+# RESPONSE GUIDELINES
+- **Markdown Usage**: Use **bolding** for emphasis on value-driven terms. Use bullet points for lists. Keep paragraphs short (2-3 sentences max).
+- **Proactiveness**: If a user asks about pricing, explain the VALUE first, then mention the $499 one-time fee.
+- **Lead Capture**: Whenever you suggest a next step, consultation, or if you cannot answer a specific technical detail not in the context, you MUST append "[BOOK_CALL]" at the end of your message.
+- **Clarity**: Do not use "fluff". Be direct and intelligence-driven.
+
+# HANDLING SPECIFIC SCENARIOS
+- If asked "How is this different?": Focus on the shift from "Old Google" to "AI Search Engines" (ChatGPT/SGE).
+- If asked about "Tech Stack": Mention Next.js/React and high performance (90+ PageSpeed).
+- If the query is outside the provided context: "That's a great technical question that depends on your specific setup. I recommend booking a brief strategy call with our lead designer to get a precise answer. [BOOK_CALL]"
+
+# OUTPUT FORMAT
+Always respond in clean Markdown formatting to ensure the best reading experience on the site.`;
+
+        // Map roles for Groq: user stays user, bot becomes assistant
+        const mappedMessages = messages.map((m: any) => ({
+            role: m.role === "user" ? "user" : "assistant",
+            content: m.content,
+        }));
+
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: systemInstruction },
+                ...mappedMessages,
+            ],
+            model: "meta-llama/llama-4-scout-17b-16e-instruct",
+            temperature: 1,
+            max_completion_tokens: 8192,
+            top_p: 1,
+            stream: true, // Switched to streaming to match user snippet
+            stop: null
         });
 
-        const chat = model.startChat({
-            history: messages.slice(0, -1).map((m: any) => ({
-                role: m.role === "user" ? "user" : "model",
-                parts: [{ text: m.content }],
-            })),
+        const encoder = new TextEncoder();
+        const stream = new ReadableStream({
+            async start(controller) {
+                try {
+                    for await (const chunk of chatCompletion) {
+                        const content = chunk.choices[0]?.delta?.content || "";
+                        if (content) {
+                            controller.enqueue(encoder.encode(content));
+                        }
+                    }
+                } catch (err) {
+                    controller.error(err);
+                } finally {
+                    controller.close();
+                }
+            },
         });
 
-        const lastMessage = messages[messages.length - 1].content;
-        const result = await chat.sendMessage(lastMessage);
-        const response = await result.response;
-        const text = response.text();
-
-        return NextResponse.json({ content: text });
+        return new Response(stream, {
+            headers: {
+                "Content-Type": "text/plain; charset=utf-8",
+                "Transfer-Encoding": "chunked",
+            },
+        });
     } catch (error: any) {
-        console.error("Chat API Error:", error);
+        console.error("Groq API Error:", error);
         return NextResponse.json(
-            { error: "Failed to generate response" },
+            { error: error.message || "Failed to generate response" },
             { status: 500 }
         );
     }
