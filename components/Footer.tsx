@@ -60,7 +60,7 @@ const Footer = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="mt-20 pt-10 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="md:mt-20 mt-10 pt-1 md:pt-10 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="font-sans text-xs text-black/30 font-medium">
                         &copy; {new Date().getFullYear()} Rankflow. All rights reserved.
                     </p>
@@ -78,8 +78,8 @@ const Footer = () => {
                 </div>
 
                 {/* Giant Glowing Logo */}
-                <div className="flex justify-center items-center gap-2 -mt-20 -mb-20">
-                    <img src="/icon.png" alt="logo" className="w-66 h-63" />
+                <div className="flex justify-center items-center gap-2 md:-mt-20 md:-mb-20 -mt-1 -mb-20">
+                    <img src="/icon.png" alt="logo" className="md:w-66 md:h-63 w-14 h-11" />
                     <h1 className="text-[12vw] md:text-[300px] font-serif font-bold tracking-wide text-black select-none text-shadow text-shadow-[0_0_30px_rgba(59,130,246,0.3)] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] pointer-events-none">
                         Rankflow
                     </h1>
