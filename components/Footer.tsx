@@ -68,7 +68,7 @@ const Footer = () => {
                         <Link href="#" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
                             Privacy Policy
                         </Link>
-                        <Link href="#" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
+                        <Link href="/terms" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
                             Terms of Service
                         </Link>
                         <Link href="/llms.txt" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
@@ -78,8 +78,8 @@ const Footer = () => {
                 </div>
 
                 {/* Giant Glowing Logo */}
-                <div className="flex justify-center items-center gap-2 -mt-20 -mb-20">                    
-                        <img src="/icon.png" alt="logo" className="w-66 h-63" />
+                <div className="flex justify-center items-center gap-2 -mt-20 -mb-20">
+                    <img src="/icon.png" alt="logo" className="w-66 h-63" />
                     <h1 className="text-[12vw] md:text-[300px] font-serif font-bold tracking-wide text-black select-none text-shadow text-shadow-[0_0_30px_rgba(59,130,246,0.3)] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] pointer-events-none">
                         Rankflow
                     </h1>
