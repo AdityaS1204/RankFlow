@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { MdSend, MdRefresh, MdCalendarToday } from "react-icons/md";
 import { openCalendly } from "@/lib/calendly";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
     role: "user" | "bot";
@@ -45,6 +47,22 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
         const newMessages = [...messages, userMessage];
         setMessages(newMessages);
         setInput("");
+
+        // Check for predefined answers first (case-insensitive)
+        const normalizedText = text.trim().toLowerCase();
+        const predefinedKey = Object.keys(PREDEFINED_ANSWERS).find(
+            key => key.toLowerCase() === normalizedText
+        );
+
+        if (predefinedKey) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setMessages((prev) => [...prev, { role: "bot", content: PREDEFINED_ANSWERS[predefinedKey] }]);
+                setIsLoading(false);
+            }, 600);
+            return;
+        }
+
         setIsLoading(true);
 
         try {
@@ -54,10 +72,33 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                 body: JSON.stringify({ messages: newMessages }),
             });
 
-            const data = await response.json();
-            if (data.error) throw new Error(data.error);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Failed to generate response");
+            }
 
-            setMessages((prev) => [...prev, { role: "bot", content: data.content }]);
+            const reader = response.body?.getReader();
+            if (!reader) throw new Error("No reader available");
+
+            const decoder = new TextDecoder();
+            let accumulatedContent = "";
+
+            // Add an initial empty bot message for streaming
+            setMessages((prev) => [...prev, { role: "bot", content: "" }]);
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                accumulatedContent += chunk;
+
+                setMessages((prev) => {
+                    const last = prev[prev.length - 1];
+                    const rest = prev.slice(0, -1);
+                    return [...rest, { ...last, content: accumulatedContent }];
+                });
+            }
         } catch (error) {
             console.error("Chat error:", error);
             setMessages((prev) => [
@@ -84,7 +125,16 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                         : "bg-gray-100 text-black/80 rounded-tl-none border border-black/5"
                         }`}
                 >
-                    {cleanContent}
+                    {m.role === "user" ? (
+                        cleanContent
+                    ) : (
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            style={{ className: "prose prose-sm prose-slate max-w-none text-inherit font-sans dark:prose-invert prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4" }}
+                        >
+                            {cleanContent}
+                        </ReactMarkdown>
+                    )}
                 </div>
                 {hasBookCall && (
                     <button

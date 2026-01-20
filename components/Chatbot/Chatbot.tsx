@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { MdChat, MdClose, MdSend } from "react-icons/md";
-import ChatWindow from "./ChatWindow";
+import  ChatWindow  from "./ChatWindow";
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
