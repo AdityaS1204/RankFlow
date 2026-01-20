@@ -128,12 +128,13 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                     {m.role === "user" ? (
                         cleanContent
                     ) : (
-                        <ReactMarkdown
+                        <div className="prose prose-sm prose-slate max-w-none text-inherit font-sans dark:prose-invert prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4">
+                        <ReactMarkdown 
                             remarkPlugins={[remarkGfm]}
-                            style={{ className: "prose prose-sm prose-slate max-w-none text-inherit font-sans dark:prose-invert prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4" }}
                         >
                             {cleanContent}
                         </ReactMarkdown>
+                        </div>
                     )}
                 </div>
                 {hasBookCall && (

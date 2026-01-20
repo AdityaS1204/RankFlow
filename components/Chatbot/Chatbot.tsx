@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { MdChat, MdClose, MdSend } from "react-icons/md";
+import React, { useState } from "react";
+import { MdChat, MdClose } from "react-icons/md";
 import  ChatWindow  from "./ChatWindow";
 
 const Chatbot = () => {
@@ -14,7 +14,7 @@ const Chatbot = () => {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-[100] font-sans">
+        <div className="fixed bottom-6 right-6 z-100 font-sans">
             {/* Chatbot Button */}
             <button
                 onClick={toggleChat}
@@ -33,7 +33,7 @@ const Chatbot = () => {
             {/* Close Button (visible when open) */}
             <button
                 onClick={toggleChat}
-                className={`absolute bottom-0 right-0 flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-lg transition-all hover:bg-gray-50 active:scale-95 z-[101] ${isOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0 pointer-events-none"
+                className={`absolute bottom-0 right-0 flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-lg transition-all hover:bg-gray-50 active:scale-95 z-101 ${isOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0 pointer-events-none"
                     }`}
             >
                 <MdClose size={28} />
