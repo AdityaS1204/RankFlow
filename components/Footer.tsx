@@ -44,7 +44,7 @@ const Footer = () => {
                                 <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
                                     <MdEmail size={18} />
                                 </div>
-                                <span className="text-sm font-semibold">rankflow.contact@gmail.com</span>
+                                <span className="text-sm font-semibold">contact@rankflow.in</span>
                             </Link>
                             <Link
                                 href="#"
