@@ -25,7 +25,7 @@ const PREDEFINED_ANSWERS: Record<string, string> = {
 
 const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     const [messages, setMessages] = useState<Message[]>([
-        { role: "bot", content: "Hi! I'm the RankFlow Assistant. How can I help you optimize your landing page for the AI-first web today?" }
+        { role: "bot", content: "Hi! 👋 I'm the RankFlow AI Agent. Ask me anything about Rankflow" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -129,11 +129,18 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                         cleanContent
                     ) : (
                         <div className="prose prose-sm prose-slate max-w-none text-inherit font-sans dark:prose-invert prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4">
-                        <ReactMarkdown 
-                            remarkPlugins={[remarkGfm]}
-                        >
-                            {cleanContent}
-                        </ReactMarkdown>
+                            <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                    h1: ({ children }) => <h1 className="text-base font-bold mb-2 mt-3">{children}</h1>,
+                                    h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3">{children}</h2>,
+                                    h3: ({ children }) => <h3 className="text-base font-bold mb-1 mt-2">{children}</h3>,
+                                    h4: ({ children }) => <h4 className="text-sm font-bold mb-1 mt-2">{children}</h4>,
+                                    p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                                }}
+                            >
+                                {cleanContent}
+                            </ReactMarkdown>
                         </div>
                     )}
                 </div>
@@ -151,18 +158,14 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     };
 
     return (
-        <div className="absolute bottom-20 right-0 w-[90vw] md:w-[400px] h-[500px] bg-white rounded-3xl shadow-2xl border border-black/5 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="absolute bottom-20 right-0 w-[90vw] md:w-[400px] h-[550px] bg-white rounded-3xl shadow-2xl border border-black/5 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
             {/* Header */}
-            <div className="bg-blue-600 p-6 text-white flex items-center gap-3">
+            <div className="bg-blue-600 p-4 text-white flex items-center gap-3">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
                     <img src="/icon.png" alt="R" className="w-7 h-7 object-contain" />
                 </div>
                 <div>
-                    <h3 className="text-xl font-serif font-semibold">RankFlow Assistant</h3>
-                    <p className="text-xs text-blue-100 font-sans opacity-80 mt-0.5 flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                        Online | AI Powered
-                    </p>
+                    <h3 className="text-xl font-serif font-semibold">RankFlow AI Agent</h3>
                 </div>
             </div>
 

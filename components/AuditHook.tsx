@@ -15,13 +15,13 @@ const AuditHook = () => {
 
     return (
         <section className="w-full py-24 bg-white relative overflow-hidden">
-            <div className="max-w-4xl mx-auto px-4">
-                <div className="relative bg-[#1a1a1e] rounded-[48px] p-10 md:p-20 text-center flex flex-col items-center gap-10 overflow-hidden group">
+            <div className="max-w-5xl mx-auto px-4">
+                <div className="relative bg-[#1a1a1e] rounded-[48px] p-10 md:p-10 lg:p-10 text-center flex flex-col items-center gap-10 overflow-hidden group">
                     {/* Subtle Glow Effect */}
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-blue-500/10 blur-[100px] rounded-full group-hover:bg-blue-500/20 transition-all duration-700" />
 
                     <div className="flex flex-col gap-6 relative z-10">
-                        <h2 className="text-4xl md:text-6xl font-serif text-white tracking-tight italic">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white tracking-tight italic">
                             Convert the Skeptics.
                         </h2>
                         <p className="font-sans text-white/50 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">

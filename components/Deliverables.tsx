@@ -51,7 +51,7 @@ const Deliverables = () => {
                     <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight italic">
                         What You Get
                     </h2>
-                    <p className="font-sans text-black/50 mt-4 max-w-xl mx-auto">
+                    <p className="font-sans text-black/60 mt-4 max-w-xl mx-auto">
                         Tangible deliverables to remove any ambiguity. Calm, confident execution.
                     </p>
                 </div>

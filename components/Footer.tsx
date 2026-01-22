@@ -28,14 +28,14 @@ const Footer = () => {
                                 Rankflow
                             </span>
                         </div>
-                        <p className="font-sans text-sm text-black/50 leading-relaxed font-medium">
+                        <p className="font-sans text-sm text-black/60 leading-relaxed font-medium">
                             High-conversion landing pages built for the next generation of AI search and intent-driven users.
                         </p>
                     </div>
 
                     {/* Contact & Socials */}
                     <div className="flex flex-col gap-6">
-                        <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-black/30">Connect</h4>
+                        <h4 className="font-sans text-xs font-bold uppercase tracking-widest text-black/40">Connect</h4>
                         <div className="flex flex-col gap-4">
                             <Link
                                 href="mailto:hello@rankflow.ai"
@@ -61,26 +61,26 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="md:mt-20 mt-10 pt-1 md:pt-10 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <p className="font-sans text-xs text-black/30 font-medium">
+                    <p className="font-sans text-xs text-black/50 font-medium">
                         &copy; {new Date().getFullYear()} Rankflow. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-8">
-                        <Link href="#" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
+                    <div className="flex items-center gap-4 md:gap-8 flex-wrap justify-center">
+                        <Link href="#" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
                             Privacy Policy
                         </Link>
-                        <Link href="/terms" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
+                        <Link href="/terms" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
                             Terms of Service
                         </Link>
-                        <Link href="/llms.txt" className="font-sans text-xs text-black/30 hover:text-black transition-colors font-medium">
+                        <Link href="/llms.txt" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
                             llms.txt
                         </Link>
                     </div>
                 </div>
 
                 {/* Giant Glowing Logo */}
-                <div className="flex justify-center items-center gap-2 md:-mt-20 md:-mb-20 -mt-1 -mb-20">
-                    <img src="/icon.png" alt="logo" className="md:w-66 md:h-63 w-14 h-11" />
-                    <h1 className="text-[12vw] md:text-[300px] font-serif font-bold tracking-wide text-black select-none text-shadow text-shadow-[0_0_30px_rgba(59,130,246,0.3)] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] pointer-events-none">
+                <div className="flex justify-center items-center gap-2 md:-mb-20 -mb-20">
+                    <img src="/icon.png" alt="logo" className="md:w-35 md:h-35 lg:w-66 lg:h-63 w-14 h-11" />
+                    <h1 className="text-[12vw] md:text-[20vw] lg:text-[300px] font-serif font-bold tracking-wide text-black select-none text-shadow text-shadow-[0_0_30px_rgba(59,130,246,0.3)] drop-shadow-[0_0_30px_rgba(59,130,246,0.3)] pointer-events-none">
                         Rankflow
                     </h1>
                 </div>

@@ -5,9 +5,9 @@ import { MdOutlineClose } from "react-icons/md";
 
 const Problem = () => {
     return (
-        <section className="w-full py-24 bg-white">
+        <section className="w-full py-24 bg-white overflow-hidden">
             <div className="max-w-6xl mx-auto px-4">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                     {/* Left: Copy */}
                     <div className="flex flex-col gap-6">
                         <span className="text-xs font-bold uppercase tracking-widest text-black/40 font-sans">

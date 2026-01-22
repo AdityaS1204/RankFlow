@@ -11,7 +11,7 @@ const FinalCTA = () => {
         >
             <div className="max-w-4xl mx-auto px-4 flex flex-col items-center gap-12">
                 <div className="flex flex-col gap-6">
-                    <h2 className="text-5xl md:text-7xl font-serif text-black leading-tight tracking-tight">
+                    <h2 className="text-5xl md:text-6xl lg:text-7xl font-serif text-black leading-tight tracking-tight">
                         Want to know <span className="italic">how your page</span> <br className="hidden md:block" />
                         performs in AI search?
                     </h2>
@@ -26,7 +26,7 @@ const FinalCTA = () => {
                     </CTAButton>
                     <div className="flex items-center gap-3">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                        <p className="font-sans text-sm text-black/40 font-medium tracking-tight">
+                        <p className="font-sans text-sm text-black/50 font-medium tracking-tight">
                             No sales pressure. Just 5 minutes of high-value clarity.
                         </p>
                     </div>

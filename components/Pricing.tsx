@@ -37,14 +37,14 @@ const Pricing = () => {
             <div className="max-w-6xl mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-sans font-bold uppercase tracking-widest text-sm">Pricing</span>
-                    <h2 className="text-5xl md:text-7xl font-serif text-black leading-tight italic mt-4">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-black leading-tight italic mt-4">
                         What package fits you?
                     </h2>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                     {/* Main Package Card */}
-                    <div className="bg-white rounded-[40px] border border-black/5 p-10 md:p-12 shadow-xl relative flex flex-col gap-8 transition-transform hover:-translate-y-1">
+                    <div className="bg-white rounded-[40px] border border-black/5 p-6 md:p-12 shadow-xl relative flex flex-col gap-8 transition-transform hover:-translate-y-1">
                         {/* Corner Screws */}
                         <div className="absolute top-6 left-6 w-1.5 h-1.5 rounded-full bg-black/10" />
                         <div className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-black/10" />
@@ -55,7 +55,7 @@ const Pricing = () => {
                             <h3 className="text-3xl font-serif text-black font-medium">AI-Optimized Landing Page</h3>
                             <div className="flex items-baseline gap-2 mt-2">
                                 <span className="text-5xl font-serif text-black font-bold">$499</span>
-                                <span className="text-black/30 font-sans text-sm font-medium">One-time · 3–5 days</span>
+                                <span className="text-black/60 font-sans text-sm font-medium">One-time · 3–5 days</span>
                             </div>
                         </div>
 
@@ -63,7 +63,7 @@ const Pricing = () => {
 
                         <div className="flex flex-col gap-8">
                             <div>
-                                <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-black/40 mb-4">What’s included</h4>
+                                <h4 className="font-sans font-bold text-xs uppercase tracking-widest text-black/50 mb-4">What’s included</h4>
                                 <ul className="grid grid-cols-1 gap-3">
                                     {landingPageFeatures.map((feature, i) => (
                                         <li key={i} className="flex items-start gap-3">
@@ -105,7 +105,7 @@ const Pricing = () => {
                     </div>
 
                     {/* Add-on Package Card */}
-                    <div className="bg-white rounded-[40px] border border-black/5 p-10 md:p-12 shadow-xl relative flex flex-col gap-8 transition-transform hover:-translate-y-1">
+                    <div className="bg-white rounded-[40px] border border-black/5 p-6 md:p-12 shadow-xl relative flex flex-col gap-8 transition-transform hover:-translate-y-1">
                         {/* Corner Screws */}
                         <div className="absolute top-6 left-6 w-1.5 h-1.5 rounded-full bg-black/10" />
                         <div className="absolute top-6 right-6 w-1.5 h-1.5 rounded-full bg-black/10" />

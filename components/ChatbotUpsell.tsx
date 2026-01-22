@@ -7,7 +7,7 @@ const ChatbotUpsell = () => {
     return (
         <section className="w-full py-24 bg-white">
             <div className="max-w-5xl mx-auto px-4">
-                <div className="bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-[48px] p-10 md:p-20 relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-blue-50 to-white border border-blue-100 rounded-[48px] p-10 md:p-14 lg:p-20 relative overflow-hidden group">
                     {/* Decorative background element */}
                     <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/[0.03] blur-[100px] rounded-full group-hover:bg-blue-600/[0.05] transition-all duration-1000" />
 
@@ -74,7 +74,7 @@ const ChatbotUpsell = () => {
                                 <h2 className="text-4xl md:text-5xl font-serif text-black leading-tight">
                                     AI Support & <br /><span className="italic underline decoration-blue-200 underline-offset-8">Lead Assistant</span>
                                 </h2>
-                                <p className="font-sans text-black/50 text-lg leading-relaxed mt-4">
+                                <p className="font-sans text-black/60 text-lg leading-relaxed mt-4">
                                     Seamlessly capture intent and answer questions 24/7 without lifting a finger.
                                 </p>
                             </div>
