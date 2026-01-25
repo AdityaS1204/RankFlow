@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { MdSend, MdRefresh, MdCalendarToday } from "react-icons/md";
+import { MdSend, MdRefresh, MdCalendarToday, MdOutlineSentimentSatisfiedAlt } from "react-icons/md";
 import { openCalendly } from "@/lib/calendly";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { EmojiPicker } from "frimousse";
 
 interface Message {
     role: "user" | "bot";
@@ -29,12 +30,25 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [userMessageCount, setUserMessageCount] = useState(0);
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const emojiPickerRef = useRef<HTMLDivElement>(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    // Close emoji picker when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target as Node)) {
+                setShowEmojiPicker(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     useEffect(() => {
         scrollToBottom();
@@ -198,8 +212,53 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                 </div>
             )}
 
-            {/* Input Bar */}
-            <div className="p-4 border-t border-black/5 bg-gray-50/50">
+            <div className="p-4 border-t border-black/5 bg-gray-50/50 relative">
+                {/* Emoji Picker Popover */}
+                {showEmojiPicker && (
+                    <div
+                        ref={emojiPickerRef}
+                        className="absolute bottom-full right-4 mb-2 z-50 shadow-2xl rounded-2xl overflow-hidden border border-black/5 animate-in fade-in slide-in-from-bottom-2 duration-200"
+                    >
+                        <EmojiPicker.Root
+                            onEmojiSelect={(emoji) => {
+                                setInput(prev => prev + emoji.emoji);
+                            }}
+                        >
+                            <EmojiPicker.Search placeholder="Search emojis..." />
+                            <EmojiPicker.Viewport>
+                                <EmojiPicker.Loading>Loading...</EmojiPicker.Loading>
+                                <EmojiPicker.Empty>No emoji found.</EmojiPicker.Empty>
+                                <EmojiPicker.List
+                                    className="select-none pb-1.5"
+                                    components={{
+                                        CategoryHeader: ({ category, ...props }) => (
+                                            <div
+                                                className="bg-white px-3 pb-1.5 font-semibold text-neutral-600 text-xs dark:bg-neutral-900 dark:text-neutral-400"
+                                                {...props}
+                                            >
+                                                {category.label}
+                                            </div>
+                                        ),
+                                        Row: ({ children, ...props }) => (
+                                            <div className="scroll-my-1 px-1.5" {...props}>
+                                                {children}
+                                            </div>
+                                        ),
+                                        Emoji: ({ emoji, ...props }) => (
+                                            <button
+                                                className="flex mt-2 size-8 items-center justify-center rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
+                                                {...props}
+                                            >
+                                                {emoji.emoji}
+                                            </button>
+                                        ),
+                                    }}
+                                />
+                            </EmojiPicker.Viewport>
+                        </EmojiPicker.Root>
+                    </div>
+                )}
+
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
@@ -211,8 +270,15 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Type your message..."
-                        className="flex-1 text-black border-none py-2 text-sm font-sans focus:outline-none focus:ring-0 placeholder:text-black"
+                        className="flex-1 text-black border-none py-2 text-sm font-sans focus:outline-none focus:ring-0 placeholder:text-black/40"
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                        className={`p-2 rounded-xl transition-colors ${showEmojiPicker ? "text-blue-600 bg-blue-50" : "text-black/40 hover:text-black/60 hover:bg-black/5"}`}
+                    >
+                        <MdOutlineSentimentSatisfiedAlt size={22} />
+                    </button>
                     <button
                         type="submit"
                         disabled={!input.trim() || isLoading}
@@ -224,7 +290,7 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
 
                 {/* Branding */}
                 <p className="text-[10px] text-center text-black/70 mt-3 font-sans font-bold uppercase tracking-widest">
-                    made by rankflow
+                    made by <a href="http://rankflow.in" className="text-blue-600 hover:underline">rankflow</a>
                 </p>
             </div>
         </div>
