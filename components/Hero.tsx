@@ -11,7 +11,7 @@ const Hero = () => {
                 <h1 className="text-4xl md:text-6xl lg:text-[80px] font-serif leading-[1.1] tracking-tight text-black">
                     Landing pages built to rank in
                     <div className="inline-flex items-center align-middle mx-2 md:mx-4 translate-y-[-2px] md:translate-y-[-4px]">
-                        <span className="relative flex h-12 w-16 md:h-20 md:w-32 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-b from-blue-400 to-blue-600 shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_8px_16px_rgba(59,130,246,0.2)] border-t border-white/20 -rotate-3">
+                        <span className="relative flex h-12 w-16 md:h-20 md:w-22 items-center justify-center rounded-xl md:rounded-2xl bg-gradient-to-b from-blue-400 to-blue-600 shadow-[inset_0_2px_4px_rgba(255,255,255,0.4),0_8px_16px_rgba(59,130,246,0.2)] border-t border-white/20 -rotate-3">
                             <MdTrendingUp size={32} className="text-white drop-shadow-lg md:size-[48px]" />
                         </span>
                     </div>
