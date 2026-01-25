@@ -46,3 +46,109 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Frimousse Emoji Picker Styles */
+[frimousse-root] {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  height: 380px;
+  background: white;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-family: inherit;
+}
+
+[frimousse-search] {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  outline: none;
+  font-size: 0.875rem;
+  width: 100%;
+  background: white;
+  color: black;
+}
+
+[frimousse-search]::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+[frimousse-viewport] {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  scroll-behavior: smooth;
+}
+
+[frimousse-viewport]::-webkit-scrollbar {
+  width: 5px;
+}
+
+[frimousse-viewport]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[frimousse-viewport]::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+[frimousse-viewport]::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[frimousse-list] {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.25rem;
+}
+
+[frimousse-item] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  width: 100% !important;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+[frimousse-item]:hover {
+  background: rgba(0, 0, 0, 0.04);
+  transform: scale(1.15);
+}
+
+[frimousse-item][data-highlighted] {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+[frimousse-category] {
+  grid-column: 1 / -1;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 0.875rem 0.5rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: inherit;
+  margin-bottom: 0.25rem;
+}
+
+[frimousse-loading], [frimousse-empty] {
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+}
