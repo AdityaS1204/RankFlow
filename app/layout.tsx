@@ -28,10 +28,10 @@ export const metadata: Metadata = {
   description: "Get custom landing pages that convert.",
   icons: {
     icon: [
-      { url: '/rankflow-icon.png', href: '/rankflow-icon.png', sizes: 'any', type: 'image/png' },
+      { url: '/icon.png', href: '/icon.png', sizes: 'any', type: 'image/png' },
     ],
-    shortcut: '/rankflow-icon.png',
-    apple: '/rankflow-icon.png',
+    shortcut: '/icon.png',
+    apple: '/icon.png',
   },
   openGraph: {
     title: "RankFlow - AI-Optimized Landing Pages",
