@@ -14,13 +14,13 @@ const Footer = () => {
                     {/* Brand Info */}
                     <div className="flex flex-col gap-6 max-w-sm">
                         <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 flex items-center justify-center ">
+                            <div className="w-10 h-10 bg-white rounded-xl shadow-sm border border-black/5 flex items-center justify-center">
                                 <Image
                                     src={'/icon.png?v=2'}
                                     alt="RankFlow Logo"
-                                    width={24}
-                                    height={24}
-                                    className="w-6 h-6 rounded-lg"
+                                    width={28}
+                                    height={28}
+                                    className="w-7 h-7 object-contain"
                                     unoptimized
                                 />
                             </div>
