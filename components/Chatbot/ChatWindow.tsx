@@ -217,7 +217,7 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                 {showEmojiPicker && (
                     <div
                         ref={emojiPickerRef}
-                        className="absolute bottom-full right-4 mb-2 z-50 shadow-2xl rounded-2xl overflow-hidden border border-black/5 animate-in fade-in slide-in-from-bottom-2 duration-200"
+                        className="absolute bottom-full right-4 mb-2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-200"
                     >
                         <EmojiPicker.Root
                             onEmojiSelect={(emoji) => {
@@ -228,32 +228,7 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                             <EmojiPicker.Viewport>
                                 <EmojiPicker.Loading>Loading...</EmojiPicker.Loading>
                                 <EmojiPicker.Empty>No emoji found.</EmojiPicker.Empty>
-                                <EmojiPicker.List
-                                    className="select-none pb-1.5"
-                                    components={{
-                                        CategoryHeader: ({ category, ...props }) => (
-                                            <div
-                                                className="bg-white px-3 pb-1.5 font-semibold text-neutral-600 text-xs dark:bg-neutral-900 dark:text-neutral-400"
-                                                {...props}
-                                            >
-                                                {category.label}
-                                            </div>
-                                        ),
-                                        Row: ({ children, ...props }) => (
-                                            <div className="scroll-my-1 px-1.5" {...props}>
-                                                {children}
-                                            </div>
-                                        ),
-                                        Emoji: ({ emoji, ...props }) => (
-                                            <button
-                                                className="flex mt-2 size-8 items-center justify-center rounded-md text-lg data-[active]:bg-neutral-100 dark:data-[active]:bg-neutral-800"
-                                                {...props}
-                                            >
-                                                {emoji.emoji}
-                                            </button>
-                                        ),
-                                    }}
-                                />
+                                <EmojiPicker.List />
                             </EmojiPicker.Viewport>
                         </EmojiPicker.Root>
                     </div>
