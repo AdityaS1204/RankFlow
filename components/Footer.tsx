@@ -47,7 +47,7 @@ const Footer = () => {
                                 <span className="text-sm font-semibold">contact@rankflow.in</span>
                             </Link>
                             <Link
-                                href="#"
+                                href="https://www.linkedin.com/company/rankflow-studio/"
                                 className="flex items-center gap-3 text-black/60 hover:text-black transition-colors font-sans group"
                             >
                                 <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-blue-50 group-hover:text-blue-600 transition-all">
@@ -65,7 +65,7 @@ const Footer = () => {
                         &copy; {new Date().getFullYear()} Rankflow. All rights reserved.
                     </p>
                     <div className="flex items-center gap-4 md:gap-8 flex-wrap justify-center">
-                        <Link href="#" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
+                        <Link href="/privacy-policy" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
                             Privacy Policy
                         </Link>
                         <Link href="/terms" className="font-sans text-xs text-black/50 hover:text-black transition-colors font-medium">
