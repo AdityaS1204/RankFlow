@@ -125,8 +125,25 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     };
 
     const renderMessage = (m: Message, i: number) => {
-        const hasBookCall = m.content.includes("[BOOK_CALL]");
-        const cleanContent = m.content.replace("[BOOK_CALL]", "").trim();
+        // Regex to match [BOOK_CALL] or [BOOK_CALL:name=...&email=...]
+        const bookCallRegex = /\[BOOK_CALL(?::([^\]]+))?\]/;
+        const match = m.content.match(bookCallRegex);
+        const hasBookCall = !!match;
+
+        // Extract parameters if they exist
+        let bookingParams: { name?: string; email?: string } | undefined;
+        if (match && match[1]) {
+            const paramString = match[1];
+            const pairs = paramString.split('&');
+            bookingParams = {};
+            pairs.forEach(pair => {
+                const [key, value] = pair.split('=');
+                if (key === 'name') bookingParams!.name = value;
+                if (key === 'email') bookingParams!.email = value;
+            });
+        }
+
+        const cleanContent = m.content.replace(bookCallRegex, "").trim();
 
         return (
             <div
@@ -160,11 +177,11 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                 </div>
                 {hasBookCall && (
                     <button
-                        onClick={() => openCalendly()}
+                        onClick={() => openCalendly(undefined, bookingParams)}
                         className="mt-2 flex items-center gap-2 px-4 py-2 bg-black text-white text-xs font-bold rounded-xl hover:bg-black/80 transition-all shadow-md active:scale-95 animate-in fade-in zoom-in duration-300"
                     >
                         <MdCalendarToday size={14} />
-                        Book a Free Call
+                        {bookingParams?.name ? `Book Call for ${bookingParams.name}` : "Book a Free Call"}
                     </button>
                 )}
             </div>
