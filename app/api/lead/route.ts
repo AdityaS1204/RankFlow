@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, site, email, phone } = body;
+    const { name, site, email, phone, source } = body;
 
     const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
-    console.log("Submission Attempt:", { name, site, email, phone });
+    console.log("Submission Attempt:", { name, site, email, phone, source });
     console.log("Env Check:", { hasToken: !!BOT_TOKEN, hasChatId: !!CHAT_ID });
 
     if (!BOT_TOKEN || !CHAT_ID) {
@@ -22,12 +22,13 @@ export async function POST(request: Request) {
 👤 *Name:* ${name}
 🌐 *Site:* ${site}
 📧 *Email:* ${email}
-📞 *Phone:* ${phone}
+📞 *Phone:* ${phone || 'Not provided'}
+🔍 *Source:* ${source}
 -------------------------
     `;
 
     const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    
+
     const response = await fetch(telegramUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

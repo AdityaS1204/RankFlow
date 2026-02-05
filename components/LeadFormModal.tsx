@@ -28,6 +28,7 @@ const LeadFormModal = ({
         site: "",
         email: "",
         phone: "",
+        source: "",
     });
 
     if (!isOpen) return null;
@@ -48,7 +49,7 @@ const LeadFormModal = ({
                 setTimeout(() => {
                     onClose();
                     setStatus("idle");
-                    setFormData({ name: "", site: "", email: "", phone: "" });
+                    setFormData({ name: "", site: "", email: "", phone: "", source: "" });
                 }, 3000);
             } else {
                 setStatus("error");
@@ -59,7 +60,7 @@ const LeadFormModal = ({
         }
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
@@ -111,7 +112,7 @@ const LeadFormModal = ({
                                     value={formData.name}
                                     onChange={handleChange}
                                     placeholder="John Doe"
-                                    className="w-full h-14 px-6 bg-black/[0.03] border border-black/5 rounded-2xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
+                                    className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
                                 />
                             </div>
 
@@ -124,7 +125,7 @@ const LeadFormModal = ({
                                     value={formData.site}
                                     onChange={handleChange}
                                     placeholder="https://example.com"
-                                    className="w-full h-14 px-6 bg-black/[0.03] border border-black/5 rounded-2xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
+                                    className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
                                 />
                             </div>
 
@@ -138,7 +139,7 @@ const LeadFormModal = ({
                                         value={formData.email}
                                         onChange={handleChange}
                                         placeholder="john@example.com"
-                                        className="w-full h-14 px-6 bg-black/[0.03] border border-black/5 rounded-2xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
+                                        className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2">
@@ -149,15 +150,39 @@ const LeadFormModal = ({
                                         value={formData.phone}
                                         onChange={handleChange}
                                         placeholder="+1 (555) 000-0000"
-                                        className="w-full h-14 px-6 bg-black/[0.03] border border-black/5 rounded-2xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
+                                        className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all"
                                     />
                                 </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-3">How did you hear about us?</label>
+                                <select
+                                    required
+                                    name="source"
+                                    value={formData.source}
+                                    onChange={handleChange}
+                                    className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
+                                    style={{
+                                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'right 1.5rem center',
+                                        backgroundSize: '1.25rem'
+                                    }}
+                                >
+                                    <option value="" disabled>Select a source</option>
+                                    <option value="Google">Google</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="X">X (Twitter)</option>
+                                    <option value="chatgpt">ChatGPT</option>
+                                    <option value="perplexity">Perplexity</option>
+                                </select>
                             </div>
 
                             <button
                                 disabled={status === "submitting"}
                                 type="submit"
-                                className="w-full h-16 mt-4 bg-black text-white font-sans font-bold uppercase tracking-widest rounded-2xl hover:bg-black/90 transition-all disabled:opacity-50 active:scale-[0.98] shadow-xl shadow-black/10"
+                                className="w-full h-16 mt-4 bg-black text-white font-sans font-bold uppercase tracking-widest rounded-3xl hover:bg-black/90 transition-all disabled:opacity-50 active:scale-[0.98] shadow-xl shadow-black/10"
                             >
                                 {status === "submitting" ? "Sending Request..." : buttonText}
                             </button>
