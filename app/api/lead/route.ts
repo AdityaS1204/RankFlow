@@ -1,4 +1,8 @@
 import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
+import { AuditConfirmationEmail } from '@/components/emails/AuditConfirmationEmail';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -16,6 +20,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
     }
 
+    // ── 1. Send Telegram notification ─────────────────────────────────────
     const message = `
 🚀 *New Lead from RankFlow!*
 -------------------------
@@ -26,22 +31,40 @@ export async function POST(request: Request) {
 🔍 *Source:* ${source}
     `;
 
-    const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown',
+        }),
+      }
+    );
 
-    const response = await fetch(telegramUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message,
-        parse_mode: 'Markdown',
-      }),
+    if (!telegramResponse.ok) {
+      const errorData = await telegramResponse.json();
+      console.error('Telegram API Error:', errorData);
+      throw new Error(`Telegram API failed: ${errorData.description || 'Unknown error'}`);
+    }
+
+    // ── 2. Send welcome email via Resend ───────────────────────────────────
+    const firstName = name?.split(' ')[0] || 'there';
+
+    const { error: resendError } = await resend.emails.send({
+      from: 'Aditya from Rankflow <aditya@updates.rankflow.in>',
+      to: [email],
+      subject: 'Your rankflow.in SEO Audit is Coming (24 hrs)',
+      react: AuditConfirmationEmail({ firstName, website: site }),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Telegram API Error Response:', errorData);
-      throw new Error(`Telegram API failed: ${errorData.description || 'Unknown error'}`);
+    if (resendError) {
+      // Non-fatal: Telegram succeeded, lead is captured — just log the email failure
+      console.error('Resend email error:', resendError);
+    } else {
+      console.log('Welcome email sent to:', email);
     }
 
     return NextResponse.json({ success: true });
