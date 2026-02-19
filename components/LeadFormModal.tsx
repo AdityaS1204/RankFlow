@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { MdClose, MdCheckCircle } from "react-icons/md";
+import React, { useEffect, useRef, useState } from "react";
+import { MdClose, MdCheckCircle, MdKeyboardArrowDown } from "react-icons/md";
 
 interface LeadFormModalProps {
     isOpen: boolean;
@@ -30,6 +30,27 @@ const LeadFormModal = ({
         phone: "",
         source: "",
     });
+    const [sourceOpen, setSourceOpen] = useState(false);
+    const sourceRef = useRef<HTMLDivElement>(null);
+
+    const SOURCE_OPTIONS = [
+        { value: "Google", label: "Google" },
+        { value: "LinkedIn", label: "LinkedIn" },
+        { value: "X", label: "X (Twitter)" },
+        { value: "ChatGPT", label: "ChatGPT" },
+        { value: "Perplexity", label: "Perplexity" },
+        { value: "Other", label: "Other" },
+    ];
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (sourceRef.current && !sourceRef.current.contains(e.target as Node)) {
+                setSourceOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     if (!isOpen) return null;
 
@@ -65,7 +86,7 @@ const LeadFormModal = ({
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 md:p-6">
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
@@ -155,32 +176,53 @@ const LeadFormModal = ({
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-2">
+                            {/* Custom Source Dropdown */}
+                            <div className="flex flex-col gap-2" ref={sourceRef}>
                                 <label className="text-xs font-bold uppercase tracking-widest text-black/40 px-3">How did you hear about us?</label>
-                                <select
-                                    required
-                                    name="source"
-                                    value={formData.source}
-                                    onChange={handleChange}
-                                    className="w-full h-14 px-6 bg-black/3 border border-black/5 rounded-3xl font-sans text-black focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all appearance-none cursor-pointer"
-                                    style={{
-                                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                                        backgroundRepeat: 'no-repeat',
-                                        backgroundPosition: 'right 1.5rem center',
-                                        backgroundSize: '1.25rem'
-                                    }}
-                                >
-                                    <option value="" disabled>Select a source</option>
-                                    <option value="Google">Google</option>
-                                    <option value="Bing">Bing</option>
-                                    <option value="linkedin">LinkedIn</option>
-                                    <option value="X">X (Twitter)</option>
-                                    <option value="Reddit">Reddit</option>
-                                    <option value="chatgpt">ChatGPT</option>
-                                    <option value="Claude">Claude</option>
-                                    <option value="perplexity">Perplexity</option>
-                                    <option value="other">Other</option>
-                                </select>
+                                {/* Hidden native input to participate in form validation */}
+                                <input type="hidden" name="source" value={formData.source} required />
+                                <div className="relative">
+                                    {/* Trigger button */}
+                                    <button
+                                        type="button"
+                                        onClick={() => setSourceOpen((o) => !o)}
+                                        className={`w-full h-14 px-6 pr-12 bg-black/3 border rounded-3xl font-sans text-left transition-all cursor-pointer flex items-center ${sourceOpen
+                                            ? "border-blue-500/40 ring-2 ring-blue-500/20 bg-white"
+                                            : "border-black/5 hover:bg-black/5"
+                                            } ${formData.source ? "text-black" : "text-black/30"}`}
+                                    >
+                                        <span className="truncate">
+                                            {SOURCE_OPTIONS.find((o) => o.value === formData.source)?.label ?? "Select a source"}
+                                        </span>
+                                        <MdKeyboardArrowDown
+                                            size={20}
+                                            className={`absolute right-5 top-1/2 -translate-y-1/2 text-black/40 transition-transform duration-200 ${sourceOpen ? "rotate-180" : ""
+                                                }`}
+                                        />
+                                    </button>
+
+                                    {/* Dropdown list */}
+                                    {sourceOpen && (
+                                        <div className="absolute z-50 bottom-full mb-2 w-full bg-white border border-black/8 rounded-3xl shadow-xl shadow-black/8 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+                                            {SOURCE_OPTIONS.map((option) => (
+                                                <button
+                                                    key={option.value}
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setFormData((prev) => ({ ...prev, source: option.value }));
+                                                        setSourceOpen(false);
+                                                    }}
+                                                    className={`w-full px-6 py-3.5 text-left font-sans text-sm transition-colors ${formData.source === option.value
+                                                        ? "bg-blue-50 text-blue-600 font-semibold"
+                                                        : "text-black/70 hover:bg-black/4 hover:text-black"
+                                                        }`}
+                                                >
+                                                    {option.label}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             <button
