@@ -80,7 +80,7 @@ const styles: Record<string, React.CSSProperties> = {
         boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
     },
     header: {
-        background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
+        backgroundColor: 'blue',
         padding: '40px 48px 32px',
         textAlign: 'center',
     },
