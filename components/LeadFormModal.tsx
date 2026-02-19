@@ -172,10 +172,14 @@ const LeadFormModal = ({
                                 >
                                     <option value="" disabled>Select a source</option>
                                     <option value="Google">Google</option>
+                                    <option value="Bing">Bing</option>
                                     <option value="linkedin">LinkedIn</option>
                                     <option value="X">X (Twitter)</option>
+                                    <option value="Reddit">Reddit</option>
                                     <option value="chatgpt">ChatGPT</option>
+                                    <option value="Claude">Claude</option>
                                     <option value="perplexity">Perplexity</option>
+                                    <option value="other">Other</option>
                                 </select>
                             </div>
 
