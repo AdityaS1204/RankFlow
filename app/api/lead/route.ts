@@ -44,8 +44,10 @@ export async function POST(request: Request) {
 
     if (!telegramResponse.ok) {
       const errorData = await telegramResponse.json();
+      // Non-fatal — log the failure but continue to send the email
       console.error('Telegram API Error:', errorData);
-      throw new Error(`Telegram API failed: ${errorData.description || 'Unknown error'}`);
+    } else {
+      console.log('Telegram notification sent successfully');
     }
 
     // ── 2. Send welcome email via Resend ───────────────────────────────────
@@ -59,7 +61,6 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      // Non-fatal — Telegram succeeded so the lead is captured; just log it
       console.error('Resend email error:', error);
       return Response.json({ success: true, emailError: error });
     }
@@ -68,7 +69,8 @@ export async function POST(request: Request) {
     return Response.json({ success: true, emailId: data?.id });
 
   } catch (error) {
-    console.error('Lead submission error:', error);
-    return Response.json({ error: 'Submission failed' }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Lead submission error:', message);
+    return Response.json({ error: 'Submission failed', detail: message }, { status: 500 });
   }
 }
