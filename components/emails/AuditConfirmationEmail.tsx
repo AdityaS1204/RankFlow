@@ -5,111 +5,75 @@ interface AuditConfirmationEmailProps {
     website: string;
 }
 
-export const AuditConfirmationEmail = ({ firstName, website }: AuditConfirmationEmailProps) => {
+export function AuditConfirmationEmail({ firstName, website }: AuditConfirmationEmailProps) {
     const year = new Date().getFullYear();
 
     return (
-        <html lang="en">
-            <head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Your Rankflow.in SEO Audit is Coming</title>
-            </head>
-            <body style={styles.body}>
-                <table width="100%" cellPadding={0} cellSpacing={0} style={styles.outerTable}>
-                    <tr>
-                        <td align="center">
-                            <table width={600} cellPadding={0} cellSpacing={0} style={styles.card}>
+        <div style={styles.wrapper}>
+            <div style={styles.card}>
 
-                                {/* ── Header ── */}
-                                <tr>
-                                    <td style={styles.header}>
-                                        <p style={styles.brandName}>rankflow.in</p>
-                                        <p style={styles.headerSubtitle}>AI SEO Audit Confirmed</p>
-                                    </td>
-                                </tr>
+                {/* Header */}
+                <div style={styles.header}>
+                    <p style={styles.brandName}>rankflow.in</p>
+                    <p style={styles.headerSubtitle}>AI SEO Audit Confirmed</p>
+                </div>
 
-                                {/* ── Body ── */}
-                                <tr>
-                                    <td style={styles.body_cell}>
-                                        <p style={styles.greeting}>
-                                            Hi <strong>{firstName}</strong>,
-                                        </p>
+                {/* Body */}
+                <div style={styles.body}>
+                    <p style={styles.greeting}>
+                        Hi <strong>{firstName}</strong>,
+                    </p>
 
-                                        <p style={styles.paragraph}>
-                                            Thanks for requesting a <strong>FREE AI SEO audit</strong> for{' '}
-                                            <a href={website} style={styles.link}>
-                                                {website}
-                                            </a>
-                                            !
-                                        </p>
+                    <p style={styles.paragraph}>
+                        Thanks for requesting a <strong>FREE AI SEO audit</strong> for{' '}
+                        <a href={website} style={styles.link}>{website}</a>!
+                    </p>
 
-                                        <p style={styles.paragraph}>
-                                            Your personalized report will arrive within <strong>24 hours</strong>.
-                                        </p>
+                    <p style={styles.paragraph}>
+                        Your personalized report will arrive within <strong>24 hours</strong>.
+                    </p>
 
-                                        {/* ── Divider ── */}
-                                        <table width="100%" cellPadding={0} cellSpacing={0}>
-                                            <tr>
-                                                <td style={styles.dividerCell}>
-                                                    <p style={styles.questionText}>
-                                                        <strong>Questions?</strong> Reply to this email anytime — I read every reply.
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </table>
+                    <hr style={styles.divider} />
 
-                                        <p style={styles.signoffLine}>Talk soon,</p>
-                                        <p style={styles.signoffName}>Aditya</p>
-                                        <p style={styles.signoffRole}>Founder, Rankflow.in</p>
-                                        <p style={styles.signoffContact}>
-                                            <a href="mailto:aditya@rankflow.in" style={styles.link}>
-                                                aditya@rankflow.in
-                                            </a>
-                                            &nbsp;|&nbsp;+91-7028914355
-                                        </p>
-                                    </td>
-                                </tr>
+                    <p style={styles.questionText}>
+                        <strong>Questions?</strong> Reply to this email anytime — I read every reply.
+                    </p>
 
-                                {/* ── Footer ── */}
-                                <tr>
-                                    <td style={styles.footer}>
-                                        <p style={styles.footerText}>
-                                            You received this email because you submitted an audit request at{' '}
-                                            <a href="https://rankflow.in" style={styles.link}>
-                                                rankflow.in
-                                            </a>
-                                            .<br />
-                                            © {year} Rankflow.in. All rights reserved.
-                                        </p>
-                                    </td>
-                                </tr>
+                    <p style={styles.signoffLine}>Talk soon,</p>
+                    <p style={styles.signoffName}>Aditya</p>
+                    <p style={styles.signoffRole}>Founder, Rankflow.in</p>
+                    <p style={styles.signoffContact}>
+                        <a href="mailto:aditya@rankflow.in" style={styles.link}>aditya@rankflow.in</a>
+                        {' '}|{' '}+91-7028914355
+                    </p>
+                </div>
 
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </body>
-        </html>
+                {/* Footer */}
+                <div style={styles.footer}>
+                    <p style={styles.footerText}>
+                        You received this email because you submitted an audit request at{' '}
+                        <a href="https://rankflow.in" style={styles.link}>rankflow.in</a>.
+                        <br />
+                        © {year} Rankflow.in. All rights reserved.
+                    </p>
+                </div>
+
+            </div>
+        </div>
     );
-};
+}
 
 // ── Styles ────────────────────────────────────────────────────────────────────
 
 const styles: Record<string, React.CSSProperties> = {
-    body: {
-        margin: 0,
-        padding: 0,
-        backgroundColor: '#f4f4f5',
-        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    },
-    outerTable: {
+    wrapper: {
         backgroundColor: '#f4f4f5',
         padding: '40px 16px',
+        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
     },
     card: {
         maxWidth: 600,
-        width: '100%',
+        margin: '0 auto',
         backgroundColor: '#ffffff',
         borderRadius: 24,
         overflow: 'hidden',
@@ -134,7 +98,7 @@ const styles: Record<string, React.CSSProperties> = {
         letterSpacing: '1px',
         textTransform: 'uppercase',
     },
-    body_cell: {
+    body: {
         padding: '40px 48px',
     },
     greeting: {
@@ -154,26 +118,27 @@ const styles: Record<string, React.CSSProperties> = {
         textDecoration: 'none',
         fontWeight: 600,
     },
-    dividerCell: {
+    divider: {
+        border: 'none',
         borderTop: '1px solid #e4e4e7',
-        paddingTop: 24,
-        marginTop: 16,
+        margin: '24px 0',
     },
     questionText: {
-        margin: '0 0 8px',
+        margin: '0 0 24px',
         fontSize: 15,
         color: '#3f3f46',
+        lineHeight: 1.6,
     },
     signoffLine: {
-        margin: '28px 0 4px',
+        margin: '0 0 4px',
         fontSize: 16,
         color: '#18181b',
     },
     signoffName: {
         margin: 0,
         fontSize: 16,
-        color: '#18181b',
         fontWeight: 700,
+        color: '#18181b',
     },
     signoffRole: {
         margin: '2px 0 0',
