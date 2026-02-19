@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { AuditConfirmationEmail } from '@/components/emails/AuditConfirmationEmail';
 
@@ -13,11 +12,10 @@ export async function POST(request: Request) {
     const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
     console.log("Submission Attempt:", { name, site, email, phone, source });
-    console.log("Env Check:", { hasToken: !!BOT_TOKEN, hasChatId: !!CHAT_ID });
 
     if (!BOT_TOKEN || !CHAT_ID) {
       console.error('Telegram credentials missing in .env.local');
-      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+      return Response.json({ error: 'Server configuration error' }, { status: 500 });
     }
 
     // ── 1. Send Telegram notification ─────────────────────────────────────
@@ -53,23 +51,24 @@ export async function POST(request: Request) {
     // ── 2. Send welcome email via Resend ───────────────────────────────────
     const firstName = name?.split(' ')[0] || 'there';
 
-    const { error: resendError } = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'Aditya from Rankflow <aditya@updates.rankflow.in>',
       to: [email],
       subject: 'Your rankflow.in SEO Audit is Coming (24 hrs)',
       react: AuditConfirmationEmail({ firstName, website: site }),
     });
 
-    if (resendError) {
-      // Non-fatal: Telegram succeeded, lead is captured — just log the email failure
-      console.error('Resend email error:', resendError);
-    } else {
-      console.log('Welcome email sent to:', email);
+    if (error) {
+      // Non-fatal — Telegram succeeded so the lead is captured; just log it
+      console.error('Resend email error:', error);
+      return Response.json({ success: true, emailError: error });
     }
 
-    return NextResponse.json({ success: true });
+    console.log('Welcome email sent:', data?.id);
+    return Response.json({ success: true, emailId: data?.id });
+
   } catch (error) {
     console.error('Lead submission error:', error);
-    return NextResponse.json({ error: 'Submission failed' }, { status: 500 });
+    return Response.json({ error: 'Submission failed' }, { status: 500 });
   }
 }
