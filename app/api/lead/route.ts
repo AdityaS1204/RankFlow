@@ -24,7 +24,6 @@ export async function POST(request: Request) {
 📧 *Email:* ${email}
 📞 *Phone:* ${phone || 'Not provided'}
 🔍 *Source:* ${source}
--------------------------
     `;
 
     const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
