@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <nav className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8">
-            <div className="bg-white/60 backdrop-blur-md rounded-2xl px-6 py-4 flex items-center justify-between max-w-7xl mx-auto shadow-sm border border-black/5">
+            <div className="bg-white/60 backdrop-blur-md rounded-full px-6 py-4 flex items-center justify-between max-w-4xl mx-auto shadow-sm border border-black/5">
                 <Link href="/" className="flex items-center gap-2 ">
                     <Image
                         src={'/icon.png?v=2'}
