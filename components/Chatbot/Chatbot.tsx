@@ -8,6 +8,15 @@ const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [hasNewMessage, setHasNewMessage] = useState(true);
 
+    React.useEffect(() => {
+        const handleOpenChat = () => {
+            setIsOpen(true);
+            setHasNewMessage(false);
+        };
+        window.addEventListener('open-chatbot', handleOpenChat);
+        return () => window.removeEventListener('open-chatbot', handleOpenChat);
+    }, []);
+
     const toggleChat = () => {
         setIsOpen(!isOpen);
         if (!isOpen) setHasNewMessage(false);
@@ -23,7 +32,7 @@ const Chatbot = () => {
             >
                 <MdChat size={28} />
                 {hasNewMessage && !isOpen && (
-                    <span className="absolute -top-1 -right-0 flex h-4 w-4">
+                    <span className="absolute -top-1 right-0 flex h-4 w-4">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-4 w-4 bg-blue-500"></span>
                     </span>

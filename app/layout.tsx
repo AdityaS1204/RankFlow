@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Sans, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,58 +11,13 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-const instrumentSans = Instrument_Sans({
-  weight: "400",
-  variable: "--font-instrument-sans",
-  subsets: ["latin"],
-});
-const instrumentSerif = Instrument_Serif({
-  weight: "400",
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-});
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rankflow.in'),
-  title: "RankFlow - AI-Optimized Landing Pages",
-  description: "Get custom landing pages that convert.",
-  icons: {
-    icon: [
-      { url: '/icon.png', href: '/icon.png', sizes: 'any', type: 'image/png' },
-    ],
-    shortcut: '/icon.png',
-    apple: '/icon.png',
-  },
-  openGraph: {
-    title: "RankFlow - AI-Optimized Landing Pages",
-    description: "Get custom landing pages that convert.",
-    images: [
-      {
-        url: "/rankflow.png",
-        width: 1200,
-        height: 630,
-        alt: "RankFlow - AI-Optimized Landing Pages",
-      },
-    ],
-    siteName: "RankFlow",
-    locale: "en_US",
-    type: "website",
-    url: "https://rankflow.in",
-  },
-  twitter: {
-    title: "RankFlow - AI-Optimized Landing Pages",
-    description: "Get custom landing pages that convert.",
-    card: "summary_large_image",
-    images: [
-      {
-        url: "/rankflow.png",
-        width: 1200,
-        height: 630,
-        alt: "RankFlow - AI-Optimized Landing Pages",
-      },
-    ],
-    site: "@RankFlow",
-  },
+  title: "RankFlow - AI-First Development Studio",
+  description: "We build what grows your business in the AI era.",
+  // ... rest of metadata ...
 };
 
 import Script from "next/script";
@@ -86,7 +41,7 @@ export default function RootLayout({
         </script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSans.variable} ${instrumentSerif.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ModalProvider>
           {children}
