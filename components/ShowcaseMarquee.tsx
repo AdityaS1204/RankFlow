@@ -1,14 +1,11 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 
 const images = [
   "/showcase/showcase1.png",
-  "/showcase/showcase2.png",
-  "/showcase/showcase3.png",
   "/showcase/showcase4.png",
-  "/showcase/showcase5.png",
+  "/showcase/showcase5.png"
 ];
 
 const ShowcaseMarquee = () => {
@@ -23,9 +20,9 @@ const ShowcaseMarquee = () => {
           return (
             <div
               key={index}
-              className="shrink-0 mx-2 w-[250px] h-[120px] md:w-[400px] md:h-[250px] border rounded-2xl border-slate-700/30 bg-slate-200 relative overflow-hidden group">
+              className="shrink-0 mx-2 w-[350px] h-[220px] md:w-[550px] md:h-[450px] border rounded-2xl border-slate-700/30 bg-slate-200 relative overflow-hidden group">
 
-              <div className="absolute right-0 bottom-0 w-[85%] h-[85%] overflow-hidden rounded-tl-xl border-t border-l border-slate-200 shadow-[-10px_-10px_30px_rgba(0,0,0,0.05)] z-10 transition-transform duration-500 group-hover:scale-[1.02]">
+              <div className="absolute right-0 bottom-2.5 md:right-0 md:bottom-4.5 w-[95%] h-[90%] overflow-hidden rounded-l-xl border-t border-l border-slate-200 shadow-[-10px_-10px_30px_rgba(0,0,0,0.05)] z-10 transition-transform duration-500 group-hover:scale-[1.02]">
                 <Image
                   src={src}
                   alt={`Showcase ${index + 1}`}
