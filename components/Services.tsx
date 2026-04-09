@@ -87,7 +87,7 @@ const servicesData: ServiceSection[] = [
                 name: "Mobile App + Stores",
                 price: "$4,500",
                 duration: "One-time · ~10 weeks",
-                features: ["Full UX/UI design", "iOS + Android (15+ screens)", "Play Store + App Store submission", "Store listing optimization (ASO)", "60-day bug fix support"],
+            features: ["Full UX/UI design", "iOS + Android (15+ screens)", "Play Store + App Store submission", "Store listing optimization (ASO)", "60-day bug fix support"],
                 buttonText: "Get started",
                 isPopular: true
             },
@@ -186,7 +186,7 @@ const Services = () => {
                 <div className="flex flex-col gap-16 transition-opacity duration-300 animate-in fade-in slide-in-from-bottom-4">
                     
                     {/* Service Description */}
-                    <div className="max-w-4xl">
+                    <div key={activeTab} className="max-w-4xl animate-services-fade">
                         <h3 className="text-3xl md:text-5xl font-heading font-semibold leading-tight mb-6">
                             {activeService.heading}
                         </h3>
@@ -310,6 +310,25 @@ const Services = () => {
                     )}
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes services-fade {
+                    0% {
+                        opacity: 0;
+                        transform: translateY(8px);
+                        filter: blur(8px);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: translateY(0);
+                        filter: blur(0);
+                    }
+                }
+                .animate-services-fade {
+                    animation: services-fade 420ms ease-out;
+                    will-change: opacity, transform, filter;
+                }
+            `}</style>
         </section>
     );
 };
