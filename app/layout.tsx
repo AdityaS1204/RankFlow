@@ -15,9 +15,57 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rankflow.in'),
-  title: "RankFlow - AI-First Development Studio",
-  description: "We build what grows your business in the AI era.",
-  // ... rest of metadata ...
+  title: {
+    default: "RankFlow | AI-First Development Studio",
+    template: "%s | RankFlow"
+  },
+  description: "RankFlow is an AI-first development studio. We build high-performance web applications, automate workflows, and scale businesses in the AI era.",
+  keywords: ["AI Development", "Next.js", "Web Development", "Automation", "Software Studio", "RankFlow","Fine-tuning","RAG","AI Agents", "internal copilots"],
+  authors: [{ name: "RankFlow Team" }],
+  creator: "RankFlow",
+  publisher: "RankFlow",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://rankflow.in",
+    siteName: "RankFlow",
+    title: "RankFlow | AI-First Development Studio",
+    description: "We build what grows your business in the AI era. High-performance web applications and AI-driven solutions.",
+    images: [
+      {
+        url: "/og-img.png",
+        width: 1200,
+        height: 630,
+        alt: "RankFlow - AI-First Development Studio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RankFlow | AI-First Development Studio",
+    description: "We build what grows your business in the AI era. High-performance web applications and AI-driven solutions.",
+    images: ["/og-img.png"],
+    creator: "@aaditya0124", 
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: "https://rankflow.in",
+  },
 };
 
 import Script from "next/script";
