@@ -3,7 +3,11 @@
 import { MdArrowForward } from "react-icons/md";
 import CTAButton from "./CTAButton";
 import ShowcaseMarquee from "./ShowcaseMarquee";
+import { motion } from "motion/react"
 import { openCalendly } from "@/lib/calendly";
+import Link from "next/link";
+import { RxArrowRight } from "react-icons/rx";
+
 
 const Hero = () => {
     return (
@@ -12,13 +16,23 @@ const Hero = () => {
             <div className="relative z-30 max-w-6xl mx-auto text-center px-4 mb-12">
 
                 {/* Badge Pill */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-sm mb-8 animate-fade-in shadow-sm">
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    AI-First Development Studio
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.5 }}
+                    className="mb-6 flex items-center justify-center gap-2"
+                >
+                    <Link href="https://ui.rankflow.in/" className="relative overflow-hidden rounded-full border  border-zinc-300 shadow-2xs px-4 py-1.5 text-xs font-medium text-foreground cursor-pointer">
+                        {/* Shimmer sweep */}
+                        <motion.div
+                            className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent"
+                            style={{ skewX: "-45deg" }}
+                            animate={{ x: ["-100%", "200%"] }}
+                            transition={{ repeat: Infinity, duration: 2.5, ease: "linear", repeatDelay: 2 }}
+                        />
+                        <div className="relative group flex gap-1 text-black font-sans">✦ Introducing our UI Library<span className="group-hover:text-amber-500 flex gap-1 transition-all duration-150"> Rankflow UI <RxArrowRight className="group-hover:translate-x-1 transition-all duration-150" /> </span></div>
+                    </Link>
+                </motion.div>
 
                 <h1 className="text-2xl md:text-4xl lg:text-[60px] font-heading font-bold leading-[1.1] tracking-tight text-black mb-8 max-w-5xl mx-auto">
                     We build AI-first products for founders who can't afford to move slow.
@@ -30,12 +44,12 @@ const Hero = () => {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col items-center gap-6">
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full md:w-auto">
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 w-full md:w-auto">
                         <CTAButton
                             className="scale-100 md:scale-110 w-full md:w-auto"
                             onClick={() => document.getElementById('deliverables')?.scrollIntoView({ behavior: 'smooth' })}
                         >
-                            See our services
+                            Send Message
                             <MdArrowForward />
                         </CTAButton>
 
