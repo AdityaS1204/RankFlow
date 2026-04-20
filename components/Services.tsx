@@ -47,8 +47,8 @@ const servicesData: ServiceSection[] = [
         cards: [
             {
                 name: "Dev/Design",
-                price: "$995",
-                duration: "One-time · 14 days",
+                price: "$1100",
+                duration: "One-time · 10 days",
                 features: ["1 AEO landing page", "4 supporting blogs", "Schema markup", "1 revision round"],
                 buttonText: "Get started",
                 isPopular: false
@@ -56,16 +56,16 @@ const servicesData: ServiceSection[] = [
             {
                 name: "Pro ",
                 price: "$2,125",
-                duration: "One-time · 21 days",
+                duration: "One-time · 16 days",
                 features: ["1 AEO landing page (custom design)", "5 AI-optimized blogs", "Topic cluster + entity mapping", "Core Web Vitals audit", "2 revisions + 30-day support"],
                 buttonText: "Get started",
                 isPopular: true
             },
             {
                 name: "AEO Retainer",
-                price: "$105/mo",
-                duration: "3-month min · 5 blogs/mo",
-                features: ["5 AEO blogs/month", "Monthly schema updates", "AI citation tracking report", "Competitor citation analysis"],
+                price: "$95/mo",
+                duration: "3-month min · 6 blogs/mo",
+                features: ["6 AEO blogs/month", "Monthly schema updates", "AI citation tracking report", "Competitor citation analysis"],
                 buttonText: "Learn more",
                 isPopular: false
             }
@@ -86,7 +86,7 @@ const servicesData: ServiceSection[] = [
             {
                 name: "Mobile App + Stores",
                 price: "$4,500",
-                duration: "One-time · ~10 weeks",
+                duration: "One-time · ~9 weeks",
             features: ["Full UX/UI design", "iOS + Android (15+ screens)", "Play Store + App Store submission", "Store listing optimization (ASO)", "60-day bug fix support"],
                 buttonText: "Get started",
                 isPopular: true
