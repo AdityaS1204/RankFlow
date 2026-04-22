@@ -20,7 +20,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.5 }}
-                    className="mb-6 flex items-center justify-center gap-2"
+                    className="my-6  flex items-center justify-center gap-2"
                 >
                     <Link href="https://ui.rankflow.in/" className="relative overflow-hidden rounded-full border  border-zinc-300 shadow-2xs px-4 py-1.5 text-xs font-medium text-foreground cursor-pointer">
                         {/* Shimmer sweep */}
