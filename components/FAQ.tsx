@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
+import { motion, AnimatePresence } from "motion/react";
 
 const faqData = [
     {
@@ -37,45 +38,50 @@ const FAQ = () => {
         <section className="w-full py-24 bg-white overflow-hidden" id="faq">
             <div className="max-w-4xl mx-auto px-4 md:px-8">
                 <div className="text-center mb-16">
-                    <h2 className="text-sm font-sans font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">
-                        Common Questions
-                    </h2>
                     <h3 className="text-4xl md:text-5xl font-heading font-semibold text-black leading-tight">
-                        Answers to your objections.
+                    FAQs
                     </h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                     {faqData.map((faq, i) => (
                         <div 
                             key={i} 
-                            className={`group rounded-2xl border transition-all duration-300 ${
+                            className={`group rounded-xl border transition-all duration-300 ${
                                 openIndex === i ? "border-black bg-zinc-50" : "border-zinc-100 bg-white hover:border-zinc-200"
                             }`}
                         >
                             <button
                                 onClick={() => toggleFAQ(i)}
-                                className="w-full flex items-center justify-between p-6 md:p-8 text-left"
+                                className="w-full flex items-center justify-between p-4 md:p-5 text-left"
                             >
-                                <span className={`text-lg md:text-xl font-heading font-semibold transition-colors ${
+                                <span className={`text-base md:text-lg font-heading font-semibold transition-colors ${
                                     openIndex === i ? "text-black" : "text-black/70 group-hover:text-black"
                                 }`}>
                                     {faq.question}
                                 </span>
-                                <div className={`shrink-0 w-8 h-8 rounded-full border border-black/5 flex items-center justify-center transition-transform duration-300 ${
+                                <div className={`shrink-0 w-7 h-7 rounded-full border border-black/5 flex items-center justify-center transition-transform duration-300 ${
                                     openIndex === i ? "rotate-180 bg-black text-white" : "text-black/40"
                                 }`}>
-                                    {openIndex === i ? <MdRemove size={20} /> : <MdAdd size={20} />}
+                                    {openIndex === i ? <MdRemove size={18} /> : <MdAdd size={18} />}
                                 </div>
                             </button>
                             
-                            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                                openIndex === i ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-                            }`}>
-                                <div className="px-6 md:px-8 pb-8 text-zinc-500 font-sans leading-relaxed text-base md:text-lg max-w-2xl font-light">
-                                    {faq.answer}
-                                </div>
-                            </div>
+                            <AnimatePresence initial={false}>
+                                {openIndex === i && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0, filter: "blur(8px)" }}
+                                        animate={{ height: "auto", opacity: 1, filter: "blur(0px)" }}
+                                        exit={{ height: 0, opacity: 0, filter: "blur(8px)" }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-4 md:px-5 pb-5 text-zinc-500 font-sans leading-relaxed text-sm md:text-base max-w-2xl font-light">
+                                            {faq.answer}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     ))}
                 </div>
@@ -86,7 +92,7 @@ const FAQ = () => {
                     </p>
                     <button 
                         onClick={() => window.location.href = '#hero'}
-                        className="px-8 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all active:scale-95"
+                        className="font-sans px-8 py-4 rounded-xl bg-white text-black font-bold text-sm hover:bg-zinc-200 transition-all active:scale-95"
                     >
                         Book a free 30-min call
                     </button>

@@ -38,15 +38,15 @@ const Hero = () => {
                     We build AI-first products for founders who can't afford to move slow.
                 </h1>
 
-                <p className="text-lg md:text-xl text-black/60 font-sans font-normal leading-relaxed max-w-3xl mx-auto tracking-tight mb-10">
+                <p className="text-md md:text-xl text-black/60 font-sans font-normal leading-relaxed max-w-3xl mx-auto tracking-tight mb-10">
                     Landing pages that get cited by AI search engines. Apps that ship. Agentic Chatbots that cut your support cost by half. Pick what you need.
                 </p>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col items-center gap-6">
-                    <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 w-full md:w-auto">
+                    <div className="flex items-center justify-center -space-x-6 md:space-x-0 md:gap-8 w-full md:w-auto">
                         <CTAButton
-                            className="scale-100 md:scale-110 w-full md:w-auto"
+                            className="scale-80 md:scale-100 w-full md:w-auto"
                             onClick={() => document.getElementById('deliverables')?.scrollIntoView({ behavior: 'smooth' })}
                         >
                             Send Message
@@ -55,7 +55,7 @@ const Hero = () => {
 
                         <button
                             onClick={() => openCalendly()}
-                            className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-xl p-[2px] font-sans transition-all active:scale-[0.98] scale-100 md:scale-110 w-full md:w-auto"
+                            className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-xl p-[2px] font-sans transition-all active:scale-[0.98] scale-80 md:scale-100 w-full md:w-auto"
                         >
                             <span className="absolute inset-0 rounded-xl bg-black transition-all group-hover:bg-zinc-800 shadow-[0_0_20px_rgba(0,0,0,0.1)]"></span>
                             <span className="relative flex h-full w-full items-center justify-center rounded-xl bg-zinc-900 px-8 text-lg font-semibold text-white border-t border-white/10">
@@ -63,16 +63,11 @@ const Hero = () => {
                             </span>
                         </button>
                     </div>
-
-                    <p className="text-sm font-sans text-black/40 flex items-center justify-center gap-2 font-semibold">
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                        Limited slots for April 2026.
-                    </p>
                 </div>
             </div>
 
             {/* 2. Showcase Marquee */}
-            <div className="w-full mt-8">
+            <div className="w-full -mt-16">
                 <ShowcaseMarquee />
             </div>
         </section>

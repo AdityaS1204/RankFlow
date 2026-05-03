@@ -4,8 +4,12 @@ import Image from "next/image";
 
 const images = [
   "/showcase/showcase1.png",
+  "https://res.cloudinary.com/dp5tdrmf8/image/upload/v1777723081/voicecraft-001_mp0p5l.png",
   "/showcase/showcase4.png",
-  "/showcase/showcase5.png"
+  "/showcase/showcase5.png",
+  "https://res.cloudinary.com/dp5tdrmf8/image/upload/v1777723515/workspire_qcyp9e.png",
+  "https://res.cloudinary.com/dp5tdrmf8/image/upload/v1777710066/demo-hero-seection_vqio0j.png",
+  "https://res.cloudinary.com/dp5tdrmf8/image/upload/v1777723596/intima_mpnemy.png",
 ];
 
 const ShowcaseMarquee = () => {
@@ -46,7 +50,7 @@ const ShowcaseMarquee = () => {
           }
         }
         .animate-marquee-showcase {
-          animation: marquee-showcase 60s linear infinite;
+          animation: marquee-showcase 90s linear infinite;
 
         }
       `}</style>

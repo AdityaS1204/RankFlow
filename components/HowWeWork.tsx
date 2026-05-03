@@ -7,17 +7,14 @@ const steps = [
     {
         title: "We scope it in 48 hours.",
         description: "One call, one clear brief, one fixed price. We eliminate ambiguity up front so you know exactly what you're paying for. No hidden fees, no scope creep.",
-        highlight: "One call · Fixed price"
     },
     {
         title: "You see progress every week.",
         description: "Review Figma previews, access real-time staging links, and get daily Slack updates. We don't do 'black-box' builds—you're involved in every milestone.",
-        highlight: "Real-time visibility"
     },
     {
         title: "We ship, you own everything.",
         description: "We hand over the full source code, all deployment credentials, and documentation. No licenses, no hidden dependencies, no vendor lock-in.",
-        highlight: "100% IP ownership"
     }
 ];
 
@@ -56,12 +53,6 @@ const HowWeWork = () => {
                                     {step.description}
                                 </p>
 
-                                <div className="mt-4 inline-flex items-center gap-2">
-                                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                                    <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">
-                                        {step.highlight}
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     ))}
