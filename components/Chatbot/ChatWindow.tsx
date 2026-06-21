@@ -2,31 +2,71 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { MdSend, MdRefresh, MdCalendarToday, MdOutlineSentimentSatisfiedAlt } from "react-icons/md";
-import { openCalendly } from "@/lib/calendly";
+import { getCalApi } from "@calcom/embed-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { EmojiPicker } from "frimousse";
 
 interface Message {
+    id: string;
     role: "user" | "bot";
     content: string;
+    display?: string;
+    status?: "streaming" | "typing" | "done";
 }
 
 const DEFAULT_QUERIES = [
-    "How does AI SEO work?",
-    "What's included in the $499 plan?",
-    "How fast can you launch my page?"
+    "Tell me about Landing Pages service",
+    "What does the AI Apps offering include?",
+    "How can AI Chatbots help my business?"
 ];
 
 const PREDEFINED_ANSWERS: Record<string, string> = {
-    "How does AI SEO work?": "AI SEO (Search Engine Optimization) focuses on structuring your content so LLMs like ChatGPT and Google Gemini can easily crawl, understand, and recommend your site as a top answer.",
-    "What's included in the $499 plan?": "The $499 package includes a custom high-conversion landing page, AI-optimized content architecture, lead capture setup, and a mobile-first performance-ready design—all delivered in 3-5 days. [BOOK_CALL]",
-    "How fast can you launch my page?": "We typically go from initial audit to a fully launched, AI-optimized landing page in just 3 to 5 business days. [BOOK_CALL]"
+  "Tell me about Landing Pages service": "Our Landing Pages service offers AEO‑optimized pages with custom design and fast 1‑2 week delivery. Plans start at $1,100 for Dev/Design, $2,125 for Pro, and $95/mo for ongoing AEO retainer.",
+  "What does the AI Apps offering include?": "We build full‑stack AI applications, covering UX/UI design, backend, and deployment on iOS, Android, and web. Pricing starts at $4,500 for Mobile App + Stores, with custom solutions for complex SaaS projects.",
+  "How can AI Chatbots help my business?": "Our AI Chatbots are trained on your data, integrate with CRM and WhatsApp, and provide 24/7 engagement and lead capture. Packages begin at $1,800 for Lead Gen Bot, $3,200 for Support + Lead Bot, with enterprise options available."
 };
+
+
+/* ── keyframes injected once ── */
+const TYPING_CPS = 160; // characters per second
+const TYPING_TICK_MS = 30;
+
+const CHAT_STYLES = `
+@keyframes msgAppear {
+  0%   { opacity: 0; filter: blur(8px); transform: translateY(10px); }
+  100% { opacity: 1; filter: blur(0px);  transform: translateY(0);    }
+}
+@keyframes caretBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@keyframes wordReveal {
+  0% {
+    filter: blur(5px);
+    opacity: 0;
+    transform: translateY(2px) scale(0.98);
+  }
+  100% {
+    filter: blur(0px);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.msg-enter {
+  animation: msgAppear 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  width: 0.7ch;
+  animation: caretBlink 1s steps(1, end) infinite;
+}
+`;
 
 const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     const [messages, setMessages] = useState<Message[]>([
-        { role: "bot", content: "Hi! 👋 I'm the RankFlow AI Agent. Ask me anything about Rankflow" }
+        { id: "welcome", role: "bot", content: "Hi! 👋 I'm the RankFlow AI Agent. Ask me anything about Rankflow", display: "Hi! 👋 I'm the RankFlow AI Agent. Ask me anything about Rankflow", status: "done" }
     ]);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -34,10 +74,27 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
     const [userMessageCount, setUserMessageCount] = useState(0);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const emojiPickerRef = useRef<HTMLDivElement>(null);
+    // Track which indices have already played their entrance animation
+    const animatedMessageIds = useRef<Set<string>>(new Set(["welcome"]));
+
+    const makeId = () =>
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+    const stripBookCall = (text: string) => text.replace(/\[BOOK_CALL(?::[^\]]+)?\]/g, "").trim();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
+
+    // Initialise Cal.com embed API once
+    useEffect(() => {
+        (async () => {
+            const cal = await getCalApi({ namespace: "15min" });
+            cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+        })();
+    }, []);
 
     // Close emoji picker when clicking outside
     useEffect(() => {
@@ -54,10 +111,44 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
         scrollToBottom();
     }, [messages]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const charsPerTick = Math.max(1, Math.round((TYPING_CPS * TYPING_TICK_MS) / 1000));
+
+            setMessages((prev) => {
+                let changed = false;
+
+                const next: Message[] = prev.map((msg): Message => {
+                    if (msg.role !== "bot") return msg;
+
+                    const display = msg.display ?? msg.content;
+                    const target = msg.content;
+
+                    if (display.length < target.length) {
+                        changed = true;
+                        const nextLen = Math.min(target.length, display.length + charsPerTick);
+                        return { ...msg, display: target.slice(0, nextLen), status: (msg.status === "streaming" ? "streaming" : "typing") as "streaming" | "typing" };
+                    }
+
+                    if (msg.status === "typing") {
+                        changed = true;
+                        return { ...msg, display: target, status: "done" };
+                    }
+
+                    return msg;
+                });
+
+                return changed ? next : prev;
+            });
+        }, TYPING_TICK_MS);
+
+        return () => clearInterval(interval);
+    }, []);
+
     const handleSend = async (text: string) => {
         if (!text.trim() || isLoading) return;
 
-        const userMessage = { role: "user", content: text } as Message;
+        const userMessage = { id: makeId(), role: "user", content: text } as Message;
         const newMessages = [...messages, userMessage];
         setMessages(newMessages);
         setInput("");
@@ -71,7 +162,8 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
         if (predefinedKey) {
             setIsLoading(true);
             setTimeout(() => {
-                setMessages((prev) => [...prev, { role: "bot", content: PREDEFINED_ANSWERS[predefinedKey] }]);
+                const content = PREDEFINED_ANSWERS[predefinedKey];
+                setMessages((prev) => [...prev, { id: makeId(), role: "bot", content, display: "", status: "typing" }]);
                 setIsLoading(false);
             }, 600);
             return;
@@ -83,7 +175,9 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
             const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ messages: newMessages }),
+                body: JSON.stringify({
+                    messages: newMessages.map(({ role, content }) => ({ role, content })),
+                }),
             });
 
             if (!response.ok) {
@@ -97,8 +191,9 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
             const decoder = new TextDecoder();
             let accumulatedContent = "";
 
-            // Add an initial empty bot message for streaming
-            setMessages((prev) => [...prev, { role: "bot", content: "" }]);
+            // Add an initial empty bot message for streaming (typed into view)
+            const botId = makeId();
+            setMessages((prev) => [...prev, { id: botId, role: "bot", content: "", display: "", status: "streaming" }]);
 
             while (true) {
                 const { done, value } = await reader.read();
@@ -107,28 +202,35 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                 const chunk = decoder.decode(value, { stream: true });
                 accumulatedContent += chunk;
 
-                setMessages((prev) => {
-                    const last = prev[prev.length - 1];
-                    const rest = prev.slice(0, -1);
-                    return [...rest, { ...last, content: accumulatedContent }];
-                });
+                setMessages((prev) =>
+                    prev.map((msg) => (msg.id === botId ? { ...msg, content: accumulatedContent, status: "streaming" } : msg))
+                );
             }
+
+            // Let the typewriter finish cleanly
+            setMessages((prev) => prev.map((msg) => (msg.id === botId ? { ...msg, status: "typing" } : msg)));
         } catch (error) {
             console.error("Chat error:", error);
             setMessages((prev) => [
                 ...prev,
-                { role: "bot", content: "Sorry, I'm having trouble connecting right now. Please try again or book a call! [BOOK_CALL]" }
+                {
+                    id: makeId(),
+                    role: "bot",
+                    content: "Sorry, I'm having trouble connecting right now. Please try again or book a call! [BOOK_CALL]",
+                    display: "",
+                    status: "typing",
+                }
             ]);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const renderMessage = (m: Message, i: number) => {
+    const renderMessage = (m: Message) => {
         // Regex to match [BOOK_CALL] or [BOOK_CALL:name=...&email=...]
         const bookCallRegex = /\[BOOK_CALL(?::([^\]]+))?\]/;
         const match = m.content.match(bookCallRegex);
-        const hasBookCall = !!match;
+        const hasBookCall = m.role === "bot" && m.status === "done" && !!match;
 
         // Extract parameters if they exist
         let bookingParams: { name?: string; email?: string } | undefined;
@@ -143,12 +245,19 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
             });
         }
 
-        const cleanContent = m.content.replace(bookCallRegex, "").trim();
+        const cleanContent = stripBookCall(m.content);
+        const displayContent = stripBookCall(m.display ?? m.content);
+
+        // Determine if this message needs an entrance animation
+        const isNew = !animatedMessageIds.current.has(m.id);
+        if (isNew) animatedMessageIds.current.add(m.id);
+
+        const isTyping = m.role === "bot" && (m.status === "streaming" || m.status === "typing");
 
         return (
             <div
-                key={i}
-                className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}
+                key={m.id}
+                className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}${isNew ? " msg-enter" : ""}`}
             >
                 <div
                     className={`max-w-[85%] px-4 py-2.5 rounded-2xl text-sm font-sans leading-relaxed ${m.role === "user"
@@ -157,27 +266,55 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
                         }`}
                 >
                     {m.role === "user" ? (
-                        cleanContent
+                        m.content
                     ) : (
-                        <div className="prose prose-sm prose-slate max-w-none text-inherit font-sans dark:prose-invert prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4">
-                            <ReactMarkdown
-                                remarkPlugins={[remarkGfm]}
-                                components={{
-                                    h1: ({ children }) => <h1 className="text-base font-bold mb-2 mt-3">{children}</h1>,
-                                    h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3">{children}</h2>,
-                                    h3: ({ children }) => <h3 className="text-base font-bold mb-1 mt-2">{children}</h3>,
-                                    h4: ({ children }) => <h4 className="text-sm font-bold mb-1 mt-2">{children}</h4>,
-                                    p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
-                                }}
-                            >
-                                {cleanContent}
-                            </ReactMarkdown>
+                        <div>
+                            {isTyping ? (
+                                <div className="whitespace-pre-wrap">
+                                    {displayContent.split(/(\s+)/).map((word, index) => {
+                                        if (/^\s+$/.test(word)) {
+                                            return <span key={index}>{word}</span>;
+                                        }
+                                        return (
+                                            <span 
+                                                key={index} 
+                                                className="inline-block animate-word-reveal"
+                                                style={{
+                                                    animation: "wordReveal 0.25s ease-out forwards",
+                                                    willChange: "filter, opacity, transform"
+                                                }}
+                                            >
+                                                {word}
+                                            </span>
+                                        );
+                                    })}
+                                    <span className="typing-cursor">|</span>
+                                </div>
+                            ) : (
+                                <div className="prose prose-sm prose-slate max-w-none text-black/80 font-sans prose-p:leading-relaxed prose-pre:bg-black/5 prose-pre:text-black/80 prose-strong:text-black prose-strong:font-bold prose-headings:text-black prose-ul:list-disc prose-ul:ml-4 prose-ol:list-decimal prose-ol:ml-4">
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        components={{
+                                            h1: ({ children }) => <h1 className="text-base font-bold mb-2 mt-3 text-black">{children}</h1>,
+                                            h2: ({ children }) => <h2 className="text-base font-bold mb-2 mt-3 text-black">{children}</h2>,
+                                            h3: ({ children }) => <h3 className="text-base font-bold mb-1 mt-2 text-black">{children}</h3>,
+                                            h4: ({ children }) => <h4 className="text-sm font-bold mb-1 mt-2 text-black">{children}</h4>,
+                                            p: ({ children }) => <p className="mb-2 last:mb-0 text-black/80">{children}</p>,
+                                            li: ({ children }) => <li className="text-black/80">{children}</li>,
+                                        }}
+                                    >
+                                        {cleanContent}
+                                    </ReactMarkdown>
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
                 {hasBookCall && (
                     <button
-                        onClick={() => openCalendly(undefined, bookingParams)}
+                        data-cal-namespace="15min"
+                        data-cal-link="rankflow-c2nadw/15min"
+                        data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
                         className="mt-2 flex items-center gap-2 px-4 py-2 bg-black text-white text-xs font-bold rounded-xl hover:bg-black/80 transition-all shadow-md active:scale-95 animate-in fade-in zoom-in duration-300"
                     >
                         <MdCalendarToday size={14} />
@@ -190,6 +327,8 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
 
     return (
         <div className="absolute bottom-20 right-0 w-[90vw] md:w-[400px] h-[550px] bg-white rounded-3xl shadow-2xl border border-black/5 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+            {/* Inject animation keyframes once */}
+            <style>{CHAT_STYLES}</style>
             {/* Header */}
             <div className="bg-blue-600 p-4 text-white flex items-center gap-3">
                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
@@ -202,8 +341,8 @@ const ChatWindow = ({ onClose }: { onClose: () => void }) => {
 
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-hide">
-                {messages.map((m, i) => renderMessage(m, i))}
-                {isLoading && (
+                {messages.map((m) => renderMessage(m))}
+                {isLoading && !messages.some((m) => m.role === "bot" && m.status === "streaming") && (
                     <div className="flex justify-start">
                         <div className="bg-gray-100 px-4 py-2.5 rounded-2xl rounded-tl-none border border-black/5 flex gap-1 items-center">
                             <span className="w-1.5 h-1.5 bg-black/20 rounded-full animate-bounce"></span>

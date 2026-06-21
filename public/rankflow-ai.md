@@ -11,30 +11,31 @@ Traditional SEO focuses on legacy keyword stuffing and backlinking that doesn't 
 
 ## Services & Pricing
 
-### 1. AI-Optimized Landing Page ($499 - One-time)
-A complete "Done-For-You" landing page package.
-- **Delivery**: 3-5 Business Days.
-- **Includes**:
-  - Custom landing page designed for conversions (no templates).
-  - AI-optimized content structure for ChatGPT & Google SGE.
-  - AI SEO + GEO optimization.
-  - Mobile-first, performance-ready design (90+ PageSpeed).
-  - Lead capture setup (Forms, CTAs).
-  - Clean, production-ready code.
+### 1. Landing Pages
+Engineered for Answer Engine Optimization (AEO) to make your brand visible to AI search engines.
+- **Dev/Design ($1,100 - One-time)**: 1 AEO landing page, 4 supporting blogs, schema markup, and Unlimited revisions*. Delivery in 10 days.
+- **Pro ($2,125 - One-time)**: Custom design, 1 AEO landing page, 5 AI-optimized blogs, topic cluster & entity mapping, Core Web Vitals audit, and Unlimited revisions* + 30-day support. Delivery in 16 days.
+- **AEO Retainer ($95/month)**: 3-month minimum, 10 AEO blogs/month, monthly schema updates, AI citation tracking report, competitor citation analysis.
 
-### 2. AI Support & Lead Assistant ($199/month - Optional Add-on)
-An AI chatbot embedded on your site to automate conversion.
-- **Includes**:
-  - Trained on your specific landing page and FAQs.
-  - Answers visitor questions instantly (24/7).
-  - Captures leads and qualifies visitor intent.
-  - Escalates complex queries to humans.
+### 2. AI Apps
+Full-stack application development from Figma design to deployment.
+- **Mobile App + Stores ($4,500 - One-time)**: Full UX/UI design, iOS & Android apps (15+ screens), Play Store & App Store submission, App Store Optimization (ASO), 60-day bug support. Delivery in ~9 weeks.
+- **Complex / SaaS (Custom, from $10,000)**: Multi-role auth + admin panel, payment/third-party integration, load & security testing, dedicated PM + Slack access.
+
+### 3. AI Chatbots
+Custom chatbots trained on your data to automate support and capture leads.
+- **Lead Gen Bot ($1,800 Setup + $150/month)**: Trained on your content, lead capture & qualification, basic CRM push (HubSpot), website embed.
+- **Support + Lead Bot ($3,200 Setup + $250/month)**: Lead gen & ticket deflection, CRM & helpdesk integration, WhatsApp & web widget, human handoff escalation, monthly retraining.
+- **Enterprise Bot (Custom)**: Multi-language support, deep ERP / Salesforce integration, private cloud/on-premise deployment, SLA + dedicated support.
+
+### 4. Enterprise AI (From $11,000)
+Custom models, LLM fine-tuning on proprietary data, voice AI agents, and private infrastructure. Scoped individually.
 
 ## Who is RankFlow For?
-- **SaaS Founders**: Scaling software that needs intent-driven traffic.
-- **Indie Builders**: Moving fast and needing high-performance design.
-- **Service Businesses**: Turning consultancy leads into automated bookings.
-- **Early-Stage Startups**: Building a foundation for the AI-first web.
+- **SaaS Founders**: Scaling software that needs intent-driven traffic and robust full-stack platforms.
+- **Indie Builders**: Moving fast and needing high-performance design and AI integrations.
+- **Service Businesses & Agencies**: Turning consultancy leads into automated bookings and customer support deflection.
+- **Early-Stage Startups**: Building a solid foundation for the AI-first web.
 
 ## Frequently Asked Questions (FAQs)
 
@@ -48,10 +49,10 @@ A: No. Every page is custom-designed tailored to your brand's specific offer and
 A: We build using modern, fast technologies (typically Next.js/React) to ensure high performance and scalability.
 
 **Q: How fast can you launch?**
-A: Our typical turnaround for a landing page is 3 to 5 business days after the initial audit.
+A: Our typical turnaround for an AEO landing page is 7–14 days depending on the complexity of the design and content clusters.
 
-**Q: Do I need the monthly AI Assistant?**
-A: No, it is an optional add-on. The core Landing Page is a one-time fee of $499.
+**Q: Do I need a monthly subscription?**
+A: No. Our core Landing Page (Dev/Design) and Mobile App projects are one-time fees (starting at $1,100 and $4,500 respectively). The monthly AEO retainer and chatbot hosting plans are completely optional add-ons to help you scale and automate.
 
 ## Contact
 - **Website**: https://rankflow.in
