@@ -4,7 +4,7 @@ import React from "react";
 import { MdCheck, MdOutlineInfo } from "react-icons/md";
 import CTAButton from "./CTAButton";
 
-import { openCalendly } from "@/lib/calendly";
+import { openCal } from "@/lib/cal";
 
 const Pricing = () => {
     const landingPageFeatures = [
@@ -15,6 +15,7 @@ const Pricing = () => {
         "Lead capture setup (form, CTA, basic tracking)",
         "Mobile-first, performance-ready design",
         "Clean, production-ready code",
+        "Unlimited revisions*",
     ];
 
     const landingPageProcess = [
@@ -33,7 +34,7 @@ const Pricing = () => {
     ];
 
     return (
-        <section className="w-full py-24 bg-black/[0.02] relative overflow-hidden" id="pricing">
+        <section className="w-full py-24 bg-black/2 relative overflow-hidden" id="pricing">
             <div className="max-w-6xl mx-auto px-4 relative z-10">
                 <div className="text-center mb-16">
                     <span className="text-blue-600 font-sans font-bold uppercase tracking-widest text-sm">Pricing</span>
@@ -67,7 +68,7 @@ const Pricing = () => {
                                 <ul className="grid grid-cols-1 gap-3">
                                     {landingPageFeatures.map((feature, i) => (
                                         <li key={i} className="flex items-start gap-3">
-                                            <div className="mt-1 w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                                            <div className="mt-1 w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
                                                 <MdCheck className="text-blue-600" size={10} />
                                             </div>
                                             <p className="font-sans text-sm text-black/60 leading-tight font-medium">{feature}</p>
@@ -93,7 +94,7 @@ const Pricing = () => {
 
                         <div className="mt-auto pt-8 flex flex-col items-center gap-4">
                             <CTAButton
-                                onClick={() => openCalendly()}
+                                onClick={() => openCal()}
                                 className="w-full"
                             >
                                 Book a Call
@@ -130,7 +131,7 @@ const Pricing = () => {
                             <ul className="grid grid-cols-1 gap-3">
                                 {chatbotFeatures.map((feature, i) => (
                                     <li key={i} className="flex items-start gap-3">
-                                        <div className="mt-1 w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+                                        <div className="mt-1 w-4 h-4 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
                                             <MdCheck className="text-blue-600" size={10} />
                                         </div>
                                         <p className="font-sans text-sm text-black/60 leading-tight font-medium">{feature}</p>
@@ -139,8 +140,8 @@ const Pricing = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-black/[0.02] border border-black/5 rounded-2xl p-6 flex gap-4 items-start">
-                            <MdOutlineInfo className="text-black/20 flex-shrink-0" size={20} />
+                        <div className="bg-black/2 border border-black/5 rounded-2xl p-6 flex gap-4 items-start">
+                            <MdOutlineInfo className="text-black/20 shrink-0" size={20} />
                             <p className="text-xs font-sans text-black/50 leading-relaxed italic">
                                 Available as a standalone service or after your landing page is launched to automate support and lead capture.
                             </p>
@@ -170,7 +171,7 @@ const Pricing = () => {
             </div>
 
             {/* Background decoration (Pixel art vibes) */}
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent opacity-50 z-0" />
+            <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-white to-transparent opacity-50 z-0" />
         </section>
     );
 };

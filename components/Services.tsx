@@ -46,10 +46,10 @@ const servicesData: ServiceSection[] = [
         ],
         cards: [
             {
-                name: "Dev/Design",
+                name: "Dev + Design",
                 price: "$1100",
                 duration: "One-time · 10 days",
-                features: ["1 AEO landing page", "4 supporting blogs", "Schema markup", "1 revision round"],
+                features: ["1 AEO landing page", "4 supporting blogs", "Schema markup", "Unlimited revisions*"],
                 buttonText: "Get started",
                 isPopular: false
             },
@@ -57,15 +57,15 @@ const servicesData: ServiceSection[] = [
                 name: "Pro ",
                 price: "$2,125",
                 duration: "One-time · 16 days",
-                features: ["1 AEO landing page (custom design)", "5 AI-optimized blogs", "Topic cluster + entity mapping", "Core Web Vitals audit", "2 revisions + 30-day support"],
+                features: ["1 AEO landing page (custom design)", "5 AI-optimized blogs", "Topic cluster + entity mapping", "Core Web Vitals audit", "Unlimited revisions* + 30-day support"],
                 buttonText: "Get started",
                 isPopular: true
             },
             {
                 name: "AEO Retainer",
                 price: "$95/mo",
-                duration: "3-month min · 6 blogs/mo",
-                features: ["6 AEO blogs/month", "Monthly schema updates", "AI citation tracking report", "Competitor citation analysis"],
+                duration: "3-month min · 10 blogs/mo",
+                features: ["10 AEO blogs/month", "Monthly schema updates", "AI citation tracking report", "Competitor citation analysis"],
                 buttonText: "Learn more",
                 isPopular: false
             }
@@ -155,7 +155,7 @@ const Services = () => {
     const activeService = servicesData.find(s => s.id === activeTab) || servicesData[0];
 
     return (
-        <section className="w-full py-24 bg-zinc-950 text-white overflow-hidden" id="services">
+        <section className="w-full py-24 bg-zinc-950 text-white overflow-hidden font-sans" id="services">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 
                 {/* Section Header */}
@@ -165,15 +165,15 @@ const Services = () => {
                     </h2>
                     
                     {/* Tabs */}
-                    <div className="flex flex-wrap gap-2 mb-16">
+                    <div className="flex flex-wrap gap-2 mb-16 font-sans">
                         {servicesData.map((service) => (
                             <button
                                 key={service.id}
                                 onClick={() => setActiveTab(service.id)}
-                                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                                className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border font-sans ${
                                     activeTab === service.id 
                                     ? "bg-white text-black border-white" 
-                                    : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700"
+                                    : "bg-zinc-900 text-zinc-400 border-zinc-800/80 hover:border-zinc-700 hover:text-zinc-200"
                                 }`}
                             >
                                 {service.label}
@@ -187,7 +187,7 @@ const Services = () => {
                     
                     {/* Service Description */}
                     <div key={activeTab} className="max-w-4xl animate-services-fade">
-                        <h3 className="text-3xl md:text-5xl font-heading font-semibold leading-tight mb-6">
+                        <h3 className="text-3xl md:text-5xl font-heading font-semibold leading-tight mb-6 tracking-tight">
                             {activeService.heading}
                         </h3>
                         <p className="text-lg text-zinc-400 font-sans leading-relaxed mb-10 max-w-3xl">
@@ -197,7 +197,7 @@ const Services = () => {
                         {/* Detail Pills */}
                         <div className="flex flex-wrap gap-3 mb-10">
                             {activeService.pills.map((pill, i) => (
-                                <div key={i} className="px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800 text-zinc-400 text-xs font-medium">
+                                <div key={i} className="px-4 py-2 rounded-full bg-zinc-900/40 border border-zinc-800/80 text-zinc-400 text-xs font-sans font-medium">
                                     {pill}
                                 </div>
                             ))}
@@ -211,7 +211,7 @@ const Services = () => {
                                         <span className="text-2xl md:text-3xl font-heading font-bold text-white leading-none">
                                             {stat.value}
                                         </span>
-                                        <span className="text-xs md:text-sm text-zinc-500 font-medium uppercase tracking-wider">
+                                        <span className="text-xs md:text-sm text-zinc-500 font-sans font-medium uppercase tracking-wider">
                                             {stat.label}
                                         </span>
                                     </div>
@@ -221,57 +221,64 @@ const Services = () => {
                     </div>
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                         {activeService.cards.map((card, i) => (
                             <div 
                                 key={i} 
-                                className={`relative group p-8 rounded-3xl border transition-all duration-300 flex flex-col ${
+                                className={`relative group p-8 rounded-3xl border transition-all duration-300 flex flex-col justify-between ${
                                     card.isPopular 
-                                    ? "bg-zinc-900 border-blue-600/50 shadow-[0_0_40px_rgba(37,99,235,0.1)]" 
-                                    : "bg-zinc-900/40 border-zinc-800 hover:border-zinc-700"
+                                    ? "bg-linear-to-b from-zinc-900/60 to-zinc-950/80 border-zinc-700 shadow-[0_0_50px_rgba(255,255,255,0.01)]" 
+                                    : "bg-zinc-900/25 border-zinc-900 hover:border-zinc-800/80 hover:bg-zinc-900/40"
                                 }`}
                             >
                                 {card.isPopular && (
-                                    <div className="absolute -top-3 left-8 px-3 py-1 rounded-full bg-white text-black text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                                        <MdAutoAwesome size={10} />
-                                        {card.popularLabel || "Most popular"}
-                                    </div>
+                                    <>
+                                        <div className="absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-blue-500/40 to-transparent" />
+                                        <div className="absolute -top-3 left-8 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-[10px] font-sans font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                            <div className="w-1 h-1 rounded-full bg-blue-500 animate-pulse" />
+                                            {card.popularLabel || "Most popular"}
+                                        </div>
+                                    </>
                                 )}
 
-                                <div className="mb-8">
-                                    <h4 className="text-xl font-heading font-semibold mb-2">{card.name}</h4>
-                                    <div className="flex items-baseline gap-1 mb-1">
-                                        <span className="text-4xl font-heading font-bold">{card.price}</span>
+                                <div>
+                                    <div className="mb-8">
+                                        <h4 className="text-lg font-heading font-semibold text-white mb-2">{card.name}</h4>
+                                        <div className="flex items-baseline gap-1 mb-1">
+                                            <span className="text-3xl font-heading font-bold text-white tracking-tight">{card.price}</span>
+                                        </div>
+                                        <p className="text-[10px] text-zinc-500 font-sans font-semibold uppercase tracking-wider">
+                                            {card.duration}
+                                        </p>
                                     </div>
-                                    <p className="text-xs text-zinc-500 font-medium uppercase tracking-wide">
-                                        {card.duration}
-                                    </p>
+
+                                    <div className="h-px w-full bg-zinc-900/60 mb-8" />
+
+                                    <ul className="space-y-4 mb-10 font-sans">
+                                        {card.features.map((feature, idx) => (
+                                            <li key={idx} className="flex items-start gap-3">
+                                                <div className={`mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                                                    card.isPopular 
+                                                    ? "bg-blue-950/40 border border-blue-900/50 text-blue-400" 
+                                                    : "bg-zinc-900/60 border border-zinc-800/80 text-zinc-500"
+                                                }`}>
+                                                    <MdCheck size={10} />
+                                                </div>
+                                                <span className="text-sm text-zinc-400 group-hover:text-zinc-300 transition-colors font-medium leading-relaxed">{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
 
-                                <div className="h-px w-full bg-zinc-800 mb-8" />
-
-                                <ul className="space-y-4 mb-10 grow">
-                                    {card.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-start gap-3">
-                                            <div className={`mt-1 shrink-0 w-4 h-4 rounded-full flex items-center justify-center ${
-                                                card.isPopular ? "bg-blue-600/20 text-blue-500" : "bg-zinc-800 text-zinc-500"
-                                            }`}>
-                                                <MdCheck size={12} />
-                                            </div>
-                                            <span className="text-sm text-zinc-400 font-medium leading-tight">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-
                                 <button 
-                                    className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all ${
+                                    className={`w-full py-3.5 rounded-xl flex items-center justify-center gap-2 text-xs font-sans font-bold uppercase tracking-wider transition-all ${
                                         card.isPopular 
-                                        ? "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20" 
-                                        : "bg-transparent border border-zinc-700 hover:border-zinc-500 text-white"
+                                        ? "bg-white hover:bg-zinc-100 text-black shadow-lg shadow-white/5 hover:scale-[1.01] active:scale-[0.99]" 
+                                        : "bg-zinc-900/60 border border-zinc-800/80 hover:border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-900 hover:scale-[1.01] active:scale-[0.99]"
                                     }`}
                                 >
                                     {card.buttonText}
-                                    <MdArrowOutward size={16} />
+                                    <MdArrowOutward size={14} className={card.isPopular ? "text-black" : "text-zinc-400 group-hover:text-white"} />
                                 </button>
                             </div>
                         ))}
@@ -279,10 +286,10 @@ const Services = () => {
 
                     {/* Full-width Extra Card (Bento Section) */}
                     {activeService.extraCard && (
-                        <div className="relative p-8 md:p-12 rounded-4xl border border-zinc-800 bg-zinc-900/20 overflow-hidden group">
+                        <div className="relative p-8 md:p-12 rounded-3xl border border-zinc-900 bg-zinc-900/10 overflow-hidden group">
                             <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
                                 <div className="max-w-3xl">
-                                    <span className="text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase mb-4 block">
+                                    <span className="text-[10px] font-sans font-bold tracking-[0.2em] text-zinc-500 uppercase mb-4 block">
                                         {activeService.extraCard.eyebrow}
                                     </span>
                                     <h5 className="text-2xl md:text-3xl font-heading font-semibold text-white mb-4 leading-tight">
@@ -293,16 +300,16 @@ const Services = () => {
                                     </p>
                                     <div className="flex flex-wrap gap-2">
                                         {activeService.extraCard.pills.map((pill, i) => (
-                                            <span key={i} className="px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-500 text-[10px] font-bold uppercase tracking-wide">
+                                            <span key={i} className="px-3 py-1.5 rounded-lg bg-zinc-900/40 border border-zinc-800/60 text-zinc-500 text-[10px] font-sans font-bold uppercase tracking-wide">
                                                 {pill}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
                                 <div className="shrink-0 w-full md:w-auto">
-                                    <button className="w-full md:w-auto px-10 py-5 rounded-2xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold text-sm transition-all flex items-center justify-center gap-3 active:scale-95">
+                                    <button className="w-full md:w-auto px-8 py-4 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-white font-sans font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 active:scale-95">
                                         {activeService.extraCard.buttonText}
-                                        <MdArrowOutward size={20} />
+                                        <MdArrowOutward size={16} />
                                     </button>
                                 </div>
                             </div>
