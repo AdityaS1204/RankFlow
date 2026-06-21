@@ -23,7 +23,7 @@ export default function BookingPage() {
       <div className="square-pattern p-4 md:p-[30px]">
         <div className="bg-white shadow-[0_0_50px_rgba(0,0,0,0.1)] border border-black/5 rounded-2xl overflow-hidden relative p-6 md:p-12">
           {/* Subtle architectural grid pattern in background */}
-          <div className="absolute inset-0 z-[0] opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-size-[40px_40px]" />
+          <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-size-[40px_40px]" />
           
           <div className="relative z-10 max-w-4xl mx-auto text-center flex flex-col gap-6 items-center">
             <h1 className="text-4xl md:text-6xl font-heading font-bold text-black leading-tight tracking-tight uppercase">
