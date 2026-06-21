@@ -4,7 +4,7 @@ import { MdArrowForward } from "react-icons/md";
 import CTAButton from "./CTAButton";
 import ShowcaseMarquee from "./ShowcaseMarquee";
 import { motion } from "motion/react"
-import { openCalendly } from "@/lib/calendly";
+import { openCal } from "@/lib/cal";
 import Link from "next/link";
 import { RxArrowRight } from "react-icons/rx";
 
@@ -54,7 +54,7 @@ const Hero = () => {
                         </CTAButton>
 
                         <button
-                            onClick={() => openCalendly()}
+                            onClick={() => openCal()}
                             className="group relative inline-flex h-14 items-center justify-center overflow-hidden rounded-xl p-[2px] font-sans transition-all active:scale-[0.98] scale-80 md:scale-100 w-full md:w-auto"
                         >
                             <span className="absolute inset-0 rounded-xl bg-black transition-all group-hover:bg-zinc-800 shadow-[0_0_20px_rgba(0,0,0,0.1)]"></span>
