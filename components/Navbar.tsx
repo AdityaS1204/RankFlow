@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
     const [isHidden, setIsHidden] = useState(false);
+    const [isOverDarkSection, setIsOverDarkSection] = useState(false);
     const lastScrollY = useRef(0);
 
     useEffect(() => {
@@ -16,31 +17,49 @@ const Navbar = () => {
 
             setIsHidden(shouldHide);
             lastScrollY.current = currentY;
+
+            const servicesEl = document.getElementById("services");
+            if (servicesEl) {
+                const rect = servicesEl.getBoundingClientRect();
+                const navbarTop = 42;
+                const isOver = rect.top <= navbarTop && rect.bottom >= navbarTop;
+                setIsOverDarkSection(isOver);
+            } else {
+                setIsOverDarkSection(false);
+            }
         };
 
         window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
+        window.addEventListener("resize", onScroll, { passive: true });
+        onScroll();
+
+        const timeoutId = setTimeout(onScroll, 100);
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     return (
         <nav
             className={`fixed top-[42px] left-0 right-0 z-50 px-4 md:px-8 transition-transform duration-300 ${isHidden ? "-translate-y-24" : "translate-y-0"}`}
         >
-            <div className="bg-white/40 backdrop-blur-xl rounded-2xl px-6 py-2.5 flex items-center justify-between max-w-5xl mx-auto border border-white/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] ring-1 ring-black/5">
+            <div className="rounded-2xl px-6 py-2.5 flex items-center justify-between max-w-5xl mx-auto">
                 {/* Logo Section */}
                 <div className="shrink-0">
                     <Link href="/" className="flex items-center gap-2 group">
-                        <div className="relative w-8 h-8 overflow-hidden rounded-xl p-1.5 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <div className="relative w-10 h-10 overflow-hidden rounded-xl p-1.5 group-hover:scale-110 transition-transform duration-300">
                             <Image
                                 src={'/icon.png?v=2'}
                                 alt="RankFlow Logo"
                                 width={32}
                                 height={32}
-                                className="w-full h-full object-contain"
+                                className={`w-full h-full object-contain transition-all duration-300 ${isOverDarkSection ? "invert" : "invert-0"}`}
                                 unoptimized
                             />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-slate-900 font-sans">Rankflow</span>
+                        <span className={`text-xl font-bold tracking-tight font-sans transition-colors duration-300 ${isOverDarkSection ? "text-white" : "text-slate-900"}`}>Rankflow</span>
                     </Link>
                 </div>
                 <div className="shrink-0">
