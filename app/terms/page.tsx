@@ -159,8 +159,8 @@ const TermsPage = () => {
                                     <tbody>
                                         <tr>
                                             <td className="p-3 border border-slate-200">AI Landing Page — Starter Page</td>
-                                            <td className="p-3 border border-slate-200">$995</td>
-                                            <td className="p-3 border border-slate-200">50% ($497.5)</td>
+                                            <td className="p-3 border border-slate-200">$1,100</td>
+                                            <td className="p-3 border border-slate-200">50% ($550)</td>
                                             <td className="p-3 border border-slate-200">50% on delivery</td>
                                         </tr>
                                         <tr>
@@ -171,7 +171,7 @@ const TermsPage = () => {
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200">AI Landing Page — AEO Retainer</td>
-                                            <td className="p-3 border border-slate-200">$105/month</td>
+                                            <td className="p-3 border border-slate-200">$95/month</td>
                                             <td className="p-3 border border-slate-200">First month upfront</td>
                                             <td className="p-3 border border-slate-200">Monthly on invoice date</td>
                                         </tr>
@@ -189,13 +189,13 @@ const TermsPage = () => {
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200">AI Chatbot — Lead Gen Bot</td>
-                                            <td className="p-3 border border-slate-200">$1,500 setup + $150/mo</td>
+                                            <td className="p-3 border border-slate-200">$1,800 setup + $150/mo</td>
                                             <td className="p-3 border border-slate-200">100% setup upfront</td>
                                             <td className="p-3 border border-slate-200">Monthly on invoice date</td>
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">AI Chatbot — Support + Lead Bot</td>
-                                            <td className="p-3 border border-slate-200 bg-slate-50/30">$2,800 setup + $210/mo</td>
+                                            <td className="p-3 border border-slate-200 bg-slate-50/30">$3,200 setup + $250/mo</td>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">100% setup upfront</td>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">Monthly on invoice date</td>
                                         </tr>
@@ -296,25 +296,25 @@ const TermsPage = () => {
                                     <tbody>
                                         <tr>
                                             <td className="p-3 border border-slate-200">Starter Page</td>
-                                            <td className="p-3 border border-slate-200">1 round</td>
+                                            <td className="p-3 border border-slate-200">unlimited design revisions (for first week)</td>
                                             <td className="p-3 border border-slate-200">30 days</td>
                                             <td className="p-3 border border-slate-200">Bug fixes, broken links, schema errors</td>
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">Pro</td>
-                                            <td className="p-3 border border-slate-200 bg-slate-50/30">2 rounds</td>
+                                            <td className="p-3 border border-slate-200 bg-slate-50/30">unlimited design revisions (for first 2 weeks)</td>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">30 days</td>
                                             <td className="p-3 border border-slate-200 bg-slate-50/30">Above + CWV fixes, AEO updates, copy edits</td>
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200">AEO Retainer</td>
-                                            <td className="p-3 border border-slate-200">Included</td>
+                                            <td className="p-3 border border-slate-200">included</td>
                                             <td className="p-3 border border-slate-200">Ongoing</td>
                                             <td className="p-3 border border-slate-200">Monthly content updates, citations</td>
                                         </tr>
                                         <tr>
                                             <td className="p-3 border border-slate-200">Mobile App</td>
-                                            <td className="p-3 border border-slate-200">2 rounds</td>
+                                            <td className="p-3 border border-slate-200">10 design revisions (for first week)</td>
                                             <td className="p-3 border border-slate-200">60 days</td>
                                             <td className="p-3 border border-slate-200">Store compliance, bug fixes, crashes</td>
                                         </tr>
@@ -328,7 +328,7 @@ const TermsPage = () => {
                                 </table>
                             </div>
                             <p className="text-sm italic text-black/60">
-                                Additional revisions or extended support are available at £150 / $185 per hour or by separate retainer.
+                                Additional revisions or extended support are available at £25 / $30 per hour or by separate retainer.
                             </p>
                         </section>
 
